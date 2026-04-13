@@ -1,0 +1,8 @@
+{
+  "name": "school-planning-portal",
+  "version": "1.0.0",
+  "description": "Holistic Academic Planning Portal with MongoDB backend",
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  }
+}

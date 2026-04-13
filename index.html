@@ -1,0 +1,3792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Holistic Academic Planning Portal</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #f57c00;
+      --primary-dark: #db6f00;
+      --secondary: #1565c0;
+      --secondary-dark: #0f4f98;
+      --success: #1f8a46;
+      --danger: #d32f2f;
+      --warning: #ffb300;
+
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #d9e4f0;
+
+      --soft-orange: #fff4e8;
+      --soft-blue: #eef5ff;
+      --soft-green: #eefbf1;
+      --soft-red: #fff4f4;
+      --soft-yellow: #fff9e8;
+      --soft-purple: #f5f0ff;
+
+      --shadow-sm: 0 6px 18px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 10px 26px rgba(15, 23, 42, 0.08);
+      --radius: 20px;
+      --radius-sm: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(21,101,192,0.05), transparent 20%),
+        radial-gradient(circle at top left, rgba(245,124,0,0.06), transparent 22%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    .app-shell {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.84);
+      border-bottom: 1px solid rgba(217,228,240,0.85);
+    }
+
+    .topbar-inner {
+      max-width: 1580px;
+      margin: 0 auto;
+      padding: 16px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary), #ff9f43);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .brand-text h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    .brand-text p {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--secondary);
+      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
+    }
+
+    .chip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 0 4px rgba(31,138,70,0.12);
+    }
+
+    .portal-container {
+      max-width: 1580px;
+      margin: 26px auto 50px;
+      padding: 0 18px;
+    }
+
+    .hero-panel {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fbff 55%, #fff7ef 100%);
+      border: 1px solid #e7eef8;
+      border-radius: 28px;
+      box-shadow: var(--shadow-md);
+      padding: 28px;
+      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -60px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(21,101,192,0.12), transparent 70%);
+    }
+
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      left: -50px;
+      bottom: -60px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,124,0,0.14), transparent 72%);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .hero-left h2 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 1.24;
+      color: var(--secondary);
+      font-weight: 700;
+      max-width: 860px;
+    }
+
+    .hero-left p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 900px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .hero-badge {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid #dce8f6;
+      color: var(--secondary);
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-right {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .hero-stat {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid #e4edf8;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-stat .label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .hero-stat .value {
+      font-size: 24px;
+      line-height: 1.1;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 4px;
+    }
+
+    .hero-stat .meta {
+      font-size: 12px;
+      color: #607086;
+      line-height: 1.45;
+    }
+
+    .portal-grid {
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 92px;
+      background: var(--card);
+      border: 1px solid #e7eef8;
+      border-radius: 24px;
+      box-shadow: var(--shadow-sm);
+      padding: 18px;
+    }
+
+    .sidebar-title {
+      margin: 0 0 6px;
+      font-size: 16px;
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    .sidebar-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      text-decoration: none;
+      background: #fbfdff;
+      border: 1px solid #e5edf8;
+      color: inherit;
+      transition: 0.2s ease;
+    }
+
+    .nav-item:hover {
+      transform: translateY(-1px);
+      border-color: #d6e5f7;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(135deg, var(--soft-blue), #ffffff);
+      border-color: #cfe0f6;
+    }
+
+    .nav-no {
+      min-width: 30px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--soft-blue);
+      color: var(--secondary);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .nav-text strong {
+      display: block;
+      font-size: 13px;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .nav-text span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .content-area {
+      min-width: 0;
+    }
+
+    .module-card {
+      background: var(--card);
+      border: 1px solid #e7eef8;
+      border-radius: 24px;
+      box-shadow: var(--shadow-sm);
+      padding: 22px;
+      margin-bottom: 20px;
+      scroll-margin-top: 100px;
+    }
+
+    .module-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .module-title-wrap {
+      max-width: 940px;
+    }
+
+    .module-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--soft-orange);
+      border: 1px solid #ffd9b4;
+      border-radius: 999px;
+      padding: 6px 10px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .module-title {
+      margin: 0 0 6px;
+      font-size: 22px;
+      line-height: 1.3;
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    .module-desc {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .module-status {
+      min-width: 240px;
+      background: linear-gradient(135deg, #fff, #f7fbff);
+      border: 1px solid #e4edf8;
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .module-status .status-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .module-status .status-value {
+      font-size: 18px;
+      color: var(--secondary);
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .module-status .status-meta {
+      font-size: 12px;
+      color: #607086;
+      line-height: 1.5;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #dce6f2, transparent);
+      margin: 18px 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .soft-panel {
+      background: linear-gradient(135deg, #ffffff, #f9fbff);
+      border: 1px solid #e6edf8;
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .panel-title {
+      margin: 0 0 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+
+    .panel-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .info-banner {
+      background: linear-gradient(135deg, var(--soft-orange), var(--soft-blue));
+      border: 1px solid #e8d3bc;
+      border-radius: 18px;
+      padding: 16px;
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.8;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .metric-card {
+      background: linear-gradient(135deg, #fff, #f8fbff);
+      border: 1px solid #e6edf8;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .metric-card .label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .metric-card .value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--secondary);
+      line-height: 1.1;
+      margin-bottom: 5px;
+    }
+
+    .metric-card .meta {
+      font-size: 12px;
+      color: #607086;
+      line-height: 1.45;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid #e4edf8;
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 960px;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 11px 10px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+
+    th {
+      background: #f2f7fd;
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    td {
+      background: #fff;
+    }
+
+    .inline-table {
+      min-width: 100%;
+    }
+
+    .inline-table th,
+    .inline-table td {
+      font-size: 12px;
+      padding: 10px 9px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #cad7e7;
+      border-radius: 12px;
+      background: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: 0.2s ease;
+    }
+
+    select[multiple] {
+      min-height: 108px;
+      padding: 8px;
+    }
+
+    textarea {
+      min-height: 82px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(21,101,192,0.12);
+    }
+
+    .input-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 7px;
+    }
+
+    .help-text {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button, .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 11px 18px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background: var(--secondary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-light {
+      background: #fff;
+      color: var(--secondary);
+      border: 1px solid #d7e5f7;
+    }
+
+    .btn-light:hover {
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-1px);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: var(--soft-red);
+      color: var(--danger);
+      border: 1px solid #f1caca;
+      padding: 10px 14px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid #d9e7f7;
+      color: var(--secondary);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .tag.orange {
+      background: var(--soft-orange);
+      border-color: #ffd8b5;
+      color: #b85d00;
+    }
+
+    .tag.green {
+      background: var(--soft-green);
+      border-color: #cce8d5;
+      color: #22784b;
+    }
+
+    .tag.yellow {
+      background: var(--soft-yellow);
+      border-color: #f2e1a8;
+      color: #9f7900;
+    }
+
+    .tag.red {
+      background: var(--soft-red);
+      border-color: #f0cccc;
+      color: #b63a3a;
+    }
+
+    .tag.purple {
+      background: var(--soft-purple);
+      border-color: #dacafc;
+      color: #6a47c7;
+    }
+
+    .table-chip {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      background: #eef5ff;
+      color: var(--secondary);
+      margin: 2px 4px 2px 0;
+      border: 1px solid #d7e6fa;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 30px 16px;
+      font-size: 13px;
+      color: var(--muted);
+      border: 1px dashed #cfdaea;
+      background: #fbfdff;
+      border-radius: 16px;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      padding: 10px 0 0;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 1280px) {
+      .portal-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .metric-grid,
+      .hero-right {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .topbar-inner,
+      .module-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .brand-wrap {
+        align-items: flex-start;
+      }
+
+      .portal-container {
+        padding: 0 14px;
+      }
+
+      .hero-panel,
+      .module-card,
+      .sidebar {
+        padding: 18px;
+      }
+
+      .hero-left h2 {
+        font-size: 26px;
+      }
+
+      .module-title {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-wrap">
+          <div class="brand-icon">HP</div>
+          <div class="brand-text">
+            <h1>Holistic Academic Planning Portal</h1>
+            <p>Leadership-first system for curriculum, clubs, skills, assessments, AI readiness, and complete school planning</p>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="chip" id="cloudSyncStatus">
+            <span class="chip-dot"></span>
+            <span>Connecting Desktop Server...</span>
+          </div>
+          <button class="btn btn-primary" onclick="syncToCloud()" id="cloudSyncBtn" style="font-size:12px; padding:8px 12px">
+            Save System to MongoDB
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="portal-container">
+      <section class="hero-panel">
+        <div class="hero-grid">
+          <div class="hero-left">
+            <h2>Build one connected system for academics, clubs, sports, wellbeing, vocational skills, assessments, and leadership visibility</h2>
+            <p>
+              This portal is designed for principals, academic leaders, HODs, subject teachers, club mentors, coaches,
+              and vocational trainers. It helps schools move from disconnected planning to one cohesive structure where
+              school setup, grades, subjects, curriculum development, ownership, competencies, learning objectives,
+              assessments, AI readiness, and classroom execution all stay aligned.
+            </p>
+
+            <div class="hero-badges">
+              <div class="hero-badge">School Setup</div>
+              <div class="hero-badge">Grades Offered</div>
+              <div class="hero-badge">Subjects + Domains</div>
+              <div class="hero-badge">Clubs + Sports + Wellbeing</div>
+              <div class="hero-badge">Competencies</div>
+              <div class="hero-badge">Assessments</div>
+              <div class="hero-badge">Leadership Dashboard</div>
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <div class="hero-stat">
+              <div class="label">Grades Selected</div>
+              <div class="value" id="heroGradesCount">0</div>
+              <div class="meta">From Nursery to Grade 12</div>
+            </div>
+
+            <div class="hero-stat">
+              <div class="label">Subjects Offered</div>
+              <div class="value" id="heroSubjectsCount">0</div>
+              <div class="meta">Academic subjects mapped to grades</div>
+            </div>
+
+            <div class="hero-stat">
+              <div class="label">Programs / Clubs</div>
+              <div class="value" id="heroProgramsCount">0</div>
+              <div class="meta">Beyond academics and vocational programs</div>
+            </div>
+
+            <div class="hero-stat">
+              <div class="label">Planning Stage</div>
+              <div class="value" id="heroReadinessStatus">Draft</div>
+              <div class="meta">Will update as modules are completed</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="portal-grid">
+        <aside class="sidebar">
+          <h3 class="sidebar-title">Portal Modules</h3>
+          <div class="sidebar-subtitle">
+            The portal is layered from setup to curriculum, planning, assessment, execution, and leadership intelligence.
+          </div>
+
+          <div class="nav-list">
+            <a href="#module1" class="nav-item active">
+              <div class="nav-no">1</div>
+              <div class="nav-text">
+                <strong>School Master Details</strong>
+                <span>School identity and top-level setup</span>
+              </div>
+            </a>
+
+            <a href="#module2" class="nav-item">
+              <div class="nav-no">2</div>
+              <div class="nav-text">
+                <strong>Setup Logic</strong>
+                <span>How the complete planning system works</span>
+              </div>
+            </a>
+
+            <a href="#module3" class="nav-item">
+              <div class="nav-no">3</div>
+              <div class="nav-text">
+                <strong>Grades Offered</strong>
+                <span>Select Nursery to Grade 12 structure</span>
+              </div>
+            </a>
+
+            <a href="#module4" class="nav-item">
+              <div class="nav-no">4</div>
+              <div class="nav-text">
+                <strong>Domains and Subjects Offered</strong>
+                <span>Academic, beyond academics, vocational mapping</span>
+              </div>
+            </a>
+
+            <a href="#module5" class="nav-item">
+              <div class="nav-no">5</div>
+              <div class="nav-text">
+                <strong>Curriculum Development for Programs</strong>
+                <span>Clubs, sports, arts, culture, leadership, wellbeing, vocational tracks</span>
+              </div>
+            </a>
+
+            <a href="#module6" class="nav-item">
+              <div class="nav-no">6</div>
+              <div class="nav-text">
+                <strong>Planning Assignment and Ownership</strong>
+                <span>Delegate work to HODs, teachers, mentors, coaches, and trainers</span>
+              </div>
+            </a>
+
+            <a href="#module7" class="nav-item">
+              <div class="nav-no">7</div>
+              <div class="nav-text">
+                <strong>Competencies Mapping</strong>
+                <span>Map skills to subjects, programs, and grades</span>
+              </div>
+            </a>
+
+            <a href="#module8" class="nav-item">
+              <div class="nav-no">8</div>
+              <div class="nav-text">
+                <strong>Learning Objectives</strong>
+                <span>Planned learning intentions behind teaching and activities</span>
+              </div>
+            </a>
+
+            <a href="#module9" class="nav-item">
+              <div class="nav-no">9</div>
+              <div class="nav-text">
+                <strong>Assessment Structure</strong>
+                <span>Assessment As, For, Of with time-based mapping</span>
+              </div>
+            </a>
+
+            <a href="#module10" class="nav-item">
+              <div class="nav-no">10</div>
+              <div class="nav-text">
+                <strong>AI Readiness + Class Setup</strong>
+                <span>Connect evidence structure and classroom execution</span>
+              </div>
+            </a>
+
+            <a href="#module11" class="nav-item">
+              <div class="nav-no">11</div>
+              <div class="nav-text">
+                <strong>Complete Leadership View</strong>
+                <span>Final holistic summary for school leaders</span>
+              </div>
+            </a>
+
+            <a href="#module12" class="nav-item">
+              <div class="nav-no">12</div>
+              <div class="nav-text">
+                <strong>Final Integration Layer</strong>
+                <span>Shared logic, orchestration, and overall system connection</span>
+              </div>
+            </a>
+          </div>
+        </aside>
+
+        <section class="content-area">
+
+          <!-- ==================== MODULE 1 ==================== -->
+          <section class="module-card" id="module1">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 1</div>
+                <h3 class="module-title">School Master Details</h3>
+                <p class="module-desc">
+                  Capture the school's core identity, academic year, board, leadership-level context, and overall institutional setup.
+                  This creates the top-level planning base for every later module in the portal.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module1StatusText">Pending</div>
+                <div class="status-meta">This module establishes the school's planning identity and context.</div>
+              </div>
+            </div>
+
+            <div class="grid-4">
+              <div class="metric-card">
+                <div class="label">School Name</div>
+                <div class="value" id="schoolNamePreview">-</div>
+                <div class="meta">Live institutional name preview</div>
+              </div>
+
+              <div class="metric-card">
+                <div class="label">Board</div>
+                <div class="value" id="schoolBoardPreview">-</div>
+                <div class="meta">Board currently selected by leadership</div>
+              </div>
+
+              <div class="metric-card">
+                <div class="label">Academic Year</div>
+                <div class="value" id="schoolYearPreview">-</div>
+                <div class="meta">Planning year reference</div>
+              </div>
+
+              <div class="metric-card">
+                <div class="label">School Strength</div>
+                <div class="value" id="schoolStrengthPreview">0</div>
+                <div class="meta">Leadership-level total strength</div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-2">
+              <div class="soft-panel">
+                <h4 class="panel-title">Institution Identity</h4>
+
+                <div class="grid-2">
+                  <div>
+                    <label class="input-label" for="schoolName">School Name</label>
+                    <input type="text" id="schoolName" placeholder="Enter school name">
+                    <div class="help-text">Use the official full name of the school.</div>
+                  </div>
+
+                  <div>
+                    <label class="input-label" for="schoolCode">School Code</label>
+                    <input type="text" id="schoolCode" placeholder="Enter school code">
+                    <div class="help-text">Internal code or board-affiliated school code.</div>
+                  </div>
+
+                  <div>
+                    <label class="input-label" for="academicYear">Academic Year</label>
+                    <input type="text" id="academicYear" placeholder="Example: 2026-27">
+                    <div class="help-text">This becomes the planning year for all modules.</div>
+                  </div>
+
+                  <div>
+                    <label class="input-label" for="schoolBoard">Board</label>
+                    <select id="schoolBoard">
+                      <option value="">Select board</option>
+                      <option value="CBSE">CBSE</option>
+                      <option value="ICSE">ICSE</option>
+                      <option value="State Board">State Board</option>
+                      <option value="IB">IB</option>
+                      <option value="Cambridge">Cambridge</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <div class="help-text">Board is different from curriculum structure, which is mapped later.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="soft-panel">
+                <h4 class="panel-title">Leadership Context</h4>
+
+                <div class="grid-2">
+                  <div>
+                    <label class="input-label" for="schoolStrength">Total School Strength</label>
+                    <input type="number" id="schoolStrength" min="0" placeholder="Enter total students">
+                    <div class="help-text">Used for leadership-level school context and reporting.</div>
+                  </div>
+
+                  <div>
+                    <label class="input-label" for="principalName">Principal / Head Name</label>
+                    <input type="text" id="principalName" placeholder="Enter principal or school head name">
+                    <div class="help-text">Main academic decision-maker for this portal.</div>
+                  </div>
+
+                  <div>
+                    <label class="input-label" for="schoolEmail">School Email</label>
+                    <input type="email" id="schoolEmail" placeholder="Enter official email">
+                    <div class="help-text">Official academic or administrative communication email.</div>
+                  </div>
+
+                  <div>
+                    <label class="input-label" for="schoolPhone">School Contact Number</label>
+                    <input type="text" id="schoolPhone" placeholder="Enter contact number">
+                    <div class="help-text">Main institutional contact number.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-2">
+              <div class="soft-panel">
+                <h4 class="panel-title">Academic Vision Context</h4>
+                <div>
+                  <label class="input-label" for="schoolVisionLine">School Academic Direction</label>
+                  <textarea id="schoolVisionLine" placeholder="Write the broad academic direction and institutional focus for this year"></textarea>
+                  <div class="help-text">Example: strengthen academic rigor, holistic development, delegation, and AI-supported evidence-based review.</div>
+                </div>
+              </div>
+
+              <div class="soft-panel">
+                <h4 class="panel-title">Institutional Planning Context</h4>
+                <div>
+                  <label class="input-label" for="planningPriority">Top Planning Priority</label>
+                  <textarea id="planningPriority" placeholder="What is the main planning priority this year?"></textarea>
+                  <div class="help-text">Example: competency-based planning, club structure, assessment readiness, or holistic progress reporting.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-3">
+              <div class="soft-panel">
+                <h4 class="panel-title">Why this matters</h4>
+                <p class="panel-text">
+                  Without clear school-level identity and leadership direction, later curriculum and assessment modules become disconnected.
+                  This section keeps the entire system institution-specific.
+                </p>
+              </div>
+
+              <div class="soft-panel">
+                <h4 class="panel-title">What this controls</h4>
+                <p class="panel-text">
+                  This module anchors the planning year, school context, leadership ownership, and baseline institutional positioning for all the next modules.
+                </p>
+              </div>
+
+              <div class="soft-panel">
+                <h4 class="panel-title">Leader use</h4>
+                <p class="panel-text">
+                  This is not a clerical block. It gives leadership a top-level academic planning identity that later becomes visible in the final dashboard and summaries.
+                </p>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" type="button" onclick="saveSchoolMasterDetails()">Save School Master Details</button>
+              <button class="btn-light" type="button" onclick="resetSchoolMasterDetails()">Reset Module</button>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 2 ==================== -->
+          <section class="module-card" id="module2">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 2</div>
+                <h3 class="module-title">Setup Logic</h3>
+                <p class="module-desc">
+                  This module explains the complete system flow from school setup to curriculum, clubs, competencies,
+                  assessments, AI readiness, execution, and leadership visibility.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module2StatusText">Ready to Review</div>
+                <div class="status-meta">This module aligns everyone before actual planning begins.</div>
+              </div>
+            </div>
+
+            <div class="info-banner">
+              This portal is designed for principals and academic leaders first. It does not make school leaders do every detailed
+              planning task themselves. Instead, it builds the academic structure centrally, then delegates the right tasks to
+              HODs, subject teachers, club mentors, sports coaches, wellbeing coordinators, and vocational trainers.
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-4">
+              <div class="soft-panel">
+                <h4 class="panel-title">Step 1</h4>
+                <p class="panel-text">
+                  Define the institutional identity, board, academic year, and leadership-level planning context.
+                </p>
+                <div class="tag-row">
+                  <span class="tag">School Master</span>
+                </div>
+              </div>
+
+              <div class="soft-panel">
+                <h4 class="panel-title">Step 2</h4>
+                <p class="panel-text">
+                  Activate the school's actual grade structure, then map domains and subjects offered.
+                </p>
+                <div class="tag-row">
+                  <span class="tag">Grades + Subjects</span>
+                </div>
+              </div>
+
+              <div class="soft-panel">
+                <h4 class="panel-title">Step 3</h4>
+                <p class="panel-text">
+                  Build curriculum for beyond academics and vocational areas such as clubs, sports, arts, culture, leadership, and wellbeing.
+                </p>
+                <div class="tag-row">
+                  <span class="tag">Programs + Clubs</span>
+                </div>
+              </div>
+
+              <div class="soft-panel">
+                <h4 class="panel-title">Step 4</h4>
+                <p class="panel-text">
+                  Delegate planning ownership to the right people, then connect competencies, objectives, assessments, and AI readiness.
+                </p>
+                <div class="tag-row">
+                  <span class="tag green">Delegated Planning</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-3">
+              <div class="soft-panel">
+                <h4 class="panel-title">Leadership Role</h4>
+                <p class="panel-text">
+                  School leaders define structure, approve the planning logic, review coverage, and monitor delegation quality.
+                </p>
+              </div>
+
+              <div class="soft-panel">
+                <h4 class="panel-title">Execution Role</h4>
+                <p class="panel-text">
+                  HODs, teachers, coaches, mentors, and trainers execute detailed planning, competency building, objective definition, and assessment design.
+                </p>
+              </div>
+
+              <div class="soft-panel">
+                <h4 class="panel-title">AI Role</h4>
+                <p class="panel-text">
+                  AI later helps analyze signals from learning objectives, assessments, and diary evidence to create a smarter holistic review system.
+                </p>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="table-wrap">
+              <table class="inline-table">
+                <thead>
+                  <tr>
+                    <th style="width: 7%;">Phase</th>
+                    <th style="width: 23%;">Layer</th>
+                    <th style="width: 28%;">What Happens Here</th>
+                    <th style="width: 18%;">Primary Owner</th>
+                    <th style="width: 24%;">Leadership Benefit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Foundation Layer</td>
+                    <td>School identity, academic year, board, grades, and top-level school context are established.</td>
+                    <td>Principal / Leadership</td>
+                    <td>Creates the core institutional base for all planning.</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Curriculum Backbone</td>
+                    <td>Subjects, domains, clubs, sports, wellbeing, and vocational tracks are mapped.</td>
+                    <td>Leadership + Academic Coordinators</td>
+                    <td>Prevents fragmented planning and repeated setup work.</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Delegation Layer</td>
+                    <td>Ownership is assigned to HODs, teachers, mentors, coaches, and trainers.</td>
+                    <td>Leadership + Department Heads</td>
+                    <td>Leaders supervise without doing repetitive low-level planning.</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Depth Layer</td>
+                    <td>Competencies, learning objectives, assessments, and time-based evaluation structures are built.</td>
+                    <td>HODs + Execution Teams</td>
+                    <td>Ensures academic depth, not just syllabus listing.</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>Execution & Intelligence</td>
+                    <td>AI readiness, class structure, and leadership dashboards connect planning to actual execution and evidence.</td>
+                    <td>Leadership + School Teams</td>
+                    <td>Creates a future-ready holistic review system.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-2">
+              <div class="soft-panel">
+                <h4 class="panel-title">What makes this different</h4>
+                <p class="panel-text">
+                  This is not only a subject planning portal. It is a holistic school planning system that includes academics, beyond academics, vocational skills, assessments, and intelligence layers together.
+                </p>
+              </div>
+
+              <div class="soft-panel">
+                <h4 class="panel-title">Current Portal Flow</h4>
+                <div class="tag-row">
+                  <span class="tag">1. School Master</span>
+                  <span class="tag">2. Setup Logic</span>
+                  <span class="tag">3. Grades</span>
+                  <span class="tag">4. Subjects</span>
+                  <span class="tag purple">5. Programs</span>
+                  <span class="tag">6. Assignment</span>
+                  <span class="tag">7. Competencies</span>
+                  <span class="tag">8. Objectives</span>
+                  <span class="tag orange">9. Assessments</span>
+                  <span class="tag">10. AI + Classes</span>
+                  <span class="tag green">11. Leadership View</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 3 ==================== -->
+          <section class="module-card" id="module3">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 3</div>
+                <h3 class="module-title">Grades Offered by the School</h3>
+                <p class="module-desc">
+                  Select the schooling levels that your institution actually offers. This allows all later modules
+                  like subjects, curriculum development, competencies, objectives, assessments, AI readiness, and
+                  class setup to automatically align only with the grades that exist in your school.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module3StatusText">Not Selected</div>
+                <div class="status-meta">Grades must be selected before subjects and programs are mapped.</div>
+              </div>
+            </div>
+
+            <div class="info-banner">
+              Schools may offer different grade ranges. Instead of forcing a rigid structure, this portal allows
+              leadership teams to quickly select exactly which grades exist in the institution.
+              Later modules will automatically filter themselves based on these selections.
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Pre-School Levels</h4>
+              <div class="grid-3">
+                <div class="grade-card" data-grade="Nursery">
+                  <div class="grade-title">Nursery</div>
+                  <div class="grade-meta">Pre-school entry level</div>
+                </div>
+                <div class="grade-card" data-grade="LKG">
+                  <div class="grade-title">LKG</div>
+                  <div class="grade-meta">Lower Kindergarten</div>
+                </div>
+                <div class="grade-card" data-grade="UKG">
+                  <div class="grade-title">UKG</div>
+                  <div class="grade-meta">Upper Kindergarten</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Primary School</h4>
+              <div class="grid-4">
+                <div class="grade-card" data-grade="Grade 1"><div class="grade-title">Grade 1</div><div class="grade-meta">Primary Level</div></div>
+                <div class="grade-card" data-grade="Grade 2"><div class="grade-title">Grade 2</div><div class="grade-meta">Primary Level</div></div>
+                <div class="grade-card" data-grade="Grade 3"><div class="grade-title">Grade 3</div><div class="grade-meta">Primary Level</div></div>
+                <div class="grade-card" data-grade="Grade 4"><div class="grade-title">Grade 4</div><div class="grade-meta">Primary Level</div></div>
+                <div class="grade-card" data-grade="Grade 5"><div class="grade-title">Grade 5</div><div class="grade-meta">Upper Primary</div></div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Middle School</h4>
+              <div class="grid-3">
+                <div class="grade-card" data-grade="Grade 6"><div class="grade-title">Grade 6</div><div class="grade-meta">Middle School</div></div>
+                <div class="grade-card" data-grade="Grade 7"><div class="grade-title">Grade 7</div><div class="grade-meta">Middle School</div></div>
+                <div class="grade-card" data-grade="Grade 8"><div class="grade-title">Grade 8</div><div class="grade-meta">Middle School</div></div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Secondary and Senior Secondary</h4>
+              <div class="grid-4">
+                <div class="grade-card" data-grade="Grade 9"><div class="grade-title">Grade 9</div><div class="grade-meta">Secondary</div></div>
+                <div class="grade-card" data-grade="Grade 10"><div class="grade-title">Grade 10</div><div class="grade-meta">Board Level</div></div>
+                <div class="grade-card" data-grade="Grade 11"><div class="grade-title">Grade 11</div><div class="grade-meta">Senior Secondary</div></div>
+                <div class="grade-card" data-grade="Grade 12"><div class="grade-title">Grade 12</div><div class="grade-meta">Senior Secondary</div></div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-3">
+              <div class="metric-card">
+                <div class="label">Grades Selected</div>
+                <div class="value" id="gradeCount">0</div>
+                <div class="meta">Total active grades in the school</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">School Span</div>
+                <div class="value" id="schoolSpanLabel">-</div>
+                <div class="meta">Range of grades currently offered</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Planning Readiness</div>
+                <div class="value" id="gradeReadinessLabel">Pending</div>
+                <div class="meta">Later modules activate according to selected grades</div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-2">
+              <div class="soft-panel">
+                <h4 class="panel-title">Selected Grades</h4>
+                <div id="selectedGradesContainer" class="tag-row">
+                  <span class="tag yellow">No grades selected yet</span>
+                </div>
+              </div>
+
+              <div class="soft-panel">
+                <h4 class="panel-title">Planning Impact</h4>
+                <p class="panel-text">
+                  Once grades are selected, all later modules will only display those grades for subjects,
+                  clubs, sports, vocational planning, competencies, learning objectives, assessments,
+                  and class-section setup.
+                </p>
+                <div class="tag-row">
+                  <span class="tag">Grade Filtering</span>
+                  <span class="tag green">Planning Alignment</span>
+                  <span class="tag">Leadership Visibility</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" type="button" onclick="saveGrades()">Save Selected Grades</button>
+              <button class="btn-light" type="button" onclick="resetGrades()">Reset Grades</button>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 4 ==================== -->
+          <section class="module-card" id="module4">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 4</div>
+                <h3 class="module-title">Domains and Subjects Offered by the School</h3>
+                <p class="module-desc">
+                  Map the school's offered subjects across the three core domains: Academics, Beyond Academics,
+                  and Vocational Skills. A subject can be linked to multiple grades in one row, so repeated entry is avoided.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module4StatusText">Not Started</div>
+                <div class="status-meta">This module creates the academic and non-academic subject master for later planning.</div>
+              </div>
+            </div>
+
+            <div class="info-banner">
+              This module is not only for academic subjects like Science or Mathematics. It also captures beyond academic
+              and vocational offerings such as Football, Music, Theatre, Entrepreneurship, Coding, Financial Literacy,
+              Robotics, Wellbeing, and Leadership Programs.
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-3">
+              <div class="metric-card">
+                <div class="label">Total Subject Rows</div>
+                <div class="value" id="subjectRowCount">0</div>
+                <div class="meta">Total school subject mappings created</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Unique Subjects</div>
+                <div class="value" id="uniqueSubjectCount">0</div>
+                <div class="meta">Distinct subjects and offerings mapped</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Domain Coverage</div>
+                <div class="value" id="domainCoverageCount">0</div>
+                <div class="meta">How many domains are currently active</div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Domain Mapping Logic</h4>
+              <div class="tag-row">
+                <span class="tag orange">Academics</span>
+                <span class="tag green">Beyond Academics</span>
+                <span class="tag purple">Vocational Skills</span>
+                <span class="tag">One Subject → Many Grades</span>
+                <span class="tag">No Repeated Manual Entry</span>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="table-wrap">
+              <table class="inline-table">
+                <thead>
+                  <tr>
+                    <th style="width:6%;">#</th>
+                    <th style="width:18%;">Subject / Offering Name</th>
+                    <th style="width:20%;">Grades Applicable</th>
+                    <th style="width:22%;">Domain Tagging</th>
+                    <th style="width:16%;">Type</th>
+                    <th style="width:18%;">Short Note</th>
+                  </tr>
+                </thead>
+                <tbody id="subjectMappingBody">
+                  <tr class="subject-empty-row">
+                    <td colspan="6">
+                      <div class="empty-state">
+                        No subjects added yet. Start by creating the school's first subject or offering mapping.
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" type="button" onclick="addSubjectRow()">Add Subject Row</button>
+              <button class="btn-light" type="button" onclick="addSuggestedSubjects()">Add Common School Offerings</button>
+              <button class="btn-secondary" type="button" onclick="saveSubjectMappings()">Save Subject Mappings</button>
+              <button class="btn-light" type="button" onclick="resetSubjectMappings()">Reset Module</button>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-2">
+              <div class="soft-panel">
+                <h4 class="panel-title">Domain Summary</h4>
+                <div id="domainSummaryContainer" class="tag-row">
+                  <span class="tag yellow">No domains mapped yet</span>
+                </div>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Live Subject Preview</h4>
+                <div id="subjectPreviewContainer" class="tag-row">
+                  <span class="tag yellow">No subjects mapped yet</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 5 ==================== -->
+          <section class="module-card" id="module5">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 5</div>
+                <h3 class="module-title">Curriculum Development for Beyond Academics &amp; Vocational Skills</h3>
+                <p class="module-desc">
+                  Schools today develop students beyond classroom academics. This module allows leadership to define structured programs such as Clubs, Sports, Arts, Culture, Leadership, Wellbeing, and Vocational Skill Tracks.
+                  These programs will later connect with competencies, assessments, and AI-based progress insights.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module5StatusText">Not Started</div>
+                <div class="status-meta">Programs and clubs defined here will appear in planning modules later.</div>
+              </div>
+            </div>
+
+            <div class="info-banner">
+              Instead of keeping clubs, sports, and vocational learning informal, this portal allows schools to structure them properly with planning, ownership, competencies, and evaluation.
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-3">
+              <div class="metric-card">
+                <div class="label">Total Programs</div>
+                <div class="value" id="programCount">0</div>
+                <div class="meta">Clubs / Sports / Vocational Tracks</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Active Categories</div>
+                <div class="value" id="programCategoryCount">0</div>
+                <div class="meta">How many categories are currently mapped</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Grade Coverage</div>
+                <div class="value" id="programGradeCoverage">0</div>
+                <div class="meta">Programs mapped to school grades</div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Program Category Tags</h4>
+              <div class="tag-row">
+                <span class="tag green">Clubs</span>
+                <span class="tag green">Sports</span>
+                <span class="tag green">Arts</span>
+                <span class="tag green">Culture</span>
+                <span class="tag purple">Vocational Skills</span>
+                <span class="tag purple">Leadership</span>
+                <span class="tag purple">Wellbeing</span>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="table-wrap">
+              <table class="inline-table">
+                <thead>
+                  <tr>
+                    <th style="width:6%">#</th>
+                    <th style="width:18%">Program / Club Name</th>
+                    <th style="width:18%">Applicable Grades</th>
+                    <th style="width:18%">Category</th>
+                    <th style="width:16%">Program Type</th>
+                    <th style="width:24%">Description</th>
+                  </tr>
+                </thead>
+                <tbody id="programBody">
+                  <tr class="program-empty">
+                    <td colspan="6">
+                      <div class="empty-state">
+                        No programs defined yet. Add the first club, sports program, or vocational track.
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" onclick="addProgramRow()">Add Program</button>
+              <button class="btn-light" onclick="addSuggestedPrograms()">Add Suggested Programs</button>
+              <button class="btn-secondary" onclick="savePrograms()">Save Programs</button>
+              <button class="btn-light" onclick="resetPrograms()">Reset Module</button>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-2">
+              <div class="soft-panel">
+                <h4 class="panel-title">Program Categories Used</h4>
+                <div class="tag-row" id="programCategoryPreview">
+                  <span class="tag yellow">No categories used yet</span>
+                </div>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Program Preview</h4>
+                <div class="tag-row" id="programPreview">
+                  <span class="tag yellow">No programs created yet</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 6 ==================== -->
+          <section class="module-card" id="module6">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 6</div>
+                <h3 class="module-title">Planning Assignment and Ownership</h3>
+                <p class="module-desc">
+                  This module is designed for delegation. Leaders define ownership here by assigning HODs, subject teachers,
+                  club mentors, sports coaches, wellbeing coordinators, and vocational trainers to the right subject or program-grade combinations.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module6StatusText">Not Started</div>
+                <div class="status-meta">Assign ownership first, then detailed academic and activity planning can happen cleanly.</div>
+              </div>
+            </div>
+
+            <div class="info-banner">
+              This is a leadership delegation layer. A principal should not manually do detailed planning for each subject,
+              club, sport, or vocational track. Instead, this module maps who owns the planning responsibility for each
+              academic and non-academic offering and which grades they are accountable for.
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-4">
+              <div class="metric-card">
+                <div class="label">Planning Assignments</div>
+                <div class="value" id="planningAssignmentCount">0</div>
+                <div class="meta">Total delegated ownership rows</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Mapped Owners</div>
+                <div class="value" id="mappedOwnerCount">0</div>
+                <div class="meta">Distinct academic and program owners</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Subjects / Programs Covered</div>
+                <div class="value" id="delegatedOfferingCount">0</div>
+                <div class="meta">Offerings now under planning ownership</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Delegation Strength</div>
+                <div class="value" id="delegationStrengthLabel">Basic</div>
+                <div class="meta">Improves as ownership gets mapped</div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Delegation Logic</h4>
+              <div class="tag-row">
+                <span class="tag">Subject → Grades → Owner</span>
+                <span class="tag">Program → Grades → Owner</span>
+                <span class="tag green">HOD / Teacher / Mentor Ownership</span>
+                <span class="tag orange">Leader Visibility</span>
+                <span class="tag">Planning Accountability</span>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="table-wrap">
+              <table class="inline-table">
+                <thead>
+                  <tr>
+                    <th style="width:5%;">#</th>
+                    <th style="width:14%;">Subject / Program</th>
+                    <th style="width:12%;">Grades</th>
+                    <th style="width:12%;">Domain</th>
+                    <th style="width:14%;">Owner Role</th>
+                    <th style="width:14%;">Primary Owner Name</th>
+                    <th style="width:12%;">Support Owner</th>
+                    <th style="width:9%;">Planning Scope</th>
+                    <th style="width:8%;">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="planningAssignmentBody">
+                  <tr class="planning-empty-row">
+                    <td colspan="9">
+                      <div class="empty-state">
+                        No planning assignments created yet. Start by mapping a subject or program to its responsible owner.
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" type="button" onclick="addPlanningAssignmentRow()">Add Planning Assignment</button>
+              <button class="btn-light" type="button" onclick="buildAssignmentsFromOfferings()">Auto Build from Subjects and Programs</button>
+              <button class="btn-secondary" type="button" onclick="savePlanningAssignments()">Save Planning Assignments</button>
+              <button class="btn-light" type="button" onclick="resetPlanningAssignments()">Reset Module</button>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-2">
+              <div class="soft-panel">
+                <h4 class="panel-title">Ownership Snapshot</h4>
+                <div id="planningOwnershipPreview" class="tag-row">
+                  <span class="tag yellow">No ownership mapping yet</span>
+                </div>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Leader Benefit</h4>
+                <p class="panel-text">
+                  This structure ensures that school leaders get visibility over who is responsible for which subject,
+                  club, sport, or vocational program instead of doing repetitive detailed planning themselves.
+                </p>
+                <div class="tag-row">
+                  <span class="tag">Delegation</span>
+                  <span class="tag green">Academic Accountability</span>
+                  <span class="tag">Execution Ownership</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 7 ==================== -->
+          <section class="module-card" id="module7">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 7</div>
+                <h3 class="module-title">Competencies Mapping</h3>
+                <p class="module-desc">
+                  Map detailed competencies and skills to the correct subject or program and grade combination.
+                  This helps the school move beyond content coverage and connect planning with the actual skills
+                  students are expected to build across academics, beyond academics, and vocational skills.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module7StatusText">Not Started</div>
+                <div class="status-meta">Competencies can be selected from suggested codes or entered manually.</div>
+              </div>
+            </div>
+
+            <div class="info-banner">
+              Competencies here are treated as <strong>skills</strong>. A subject, club, sports program, wellbeing program,
+              or vocational track may build several skills at once, such as problem solving, critical thinking,
+              communication, collaboration, creativity, resilience, ethical reasoning, leadership, or digital literacy.
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-4">
+              <div class="metric-card">
+                <div class="label">Competency Rows</div>
+                <div class="value" id="competencyRowCount">0</div>
+                <div class="meta">Total offering-grade competency mappings</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Unique Competencies</div>
+                <div class="value" id="uniqueCompetencyCount">0</div>
+                <div class="meta">Distinct competencies currently mapped</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Offerings Covered</div>
+                <div class="value" id="competencyOfferingCount">0</div>
+                <div class="meta">Subjects and programs with competency linkage</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Skill Depth</div>
+                <div class="value" id="competencyDepthLabel">Basic</div>
+                <div class="meta">Improves as more competencies are mapped</div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Suggested Competency Codes</h4>
+              <div id="competencySuggestionGrid" class="tag-row">
+                <span class="tag">C1.1 - Critical Thinking and Reasoning</span>
+                <span class="tag">C1.2 - Problem Solving in Real Contexts</span>
+                <span class="tag">C1.3 - Communication and Expression</span>
+                <span class="tag">C1.4 - Collaboration and Team Participation</span>
+                <span class="tag">C2.1 - Creativity and Innovation</span>
+                <span class="tag">C2.2 - Digital Literacy and Tool Use</span>
+                <span class="tag">C2.3 - Ethical Decision Making</span>
+                <span class="tag">C2.4 - Self-Management and Responsibility</span>
+                <span class="tag">C3.1 - Inquiry and Curiosity</span>
+                <span class="tag">C3.2 - Data Interpretation and Analysis</span>
+                <span class="tag">C3.3 - Application of Concepts</span>
+                <span class="tag">C3.4 - Leadership and Initiative</span>
+                <span class="tag">C4.1 - Physical Coordination and Endurance</span>
+                <span class="tag">C4.2 - Emotional Awareness and Wellbeing</span>
+                <span class="tag">C4.3 - Entrepreneurial Thinking</span>
+                <span class="tag">C4.4 - Project Execution and Ownership</span>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="table-wrap">
+              <table class="inline-table">
+                <thead>
+                  <tr>
+                    <th style="width:5%;">#</th>
+                    <th style="width:13%;">Subject / Program</th>
+                    <th style="width:12%;">Grades</th>
+                    <th style="width:12%;">Owner Link</th>
+                    <th style="width:16%;">Suggested Competency</th>
+                    <th style="width:18%;">Custom Competency Entry</th>
+                    <th style="width:16%;">Skill Intent / Why It Matters</th>
+                    <th style="width:8%;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="competencyMappingBody">
+                  <tr class="competency-empty-row">
+                    <td colspan="8">
+                      <div class="empty-state">
+                        No competencies mapped yet. Start by linking competencies to a subject or program planning row.
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" type="button" onclick="addCompetencyRow()">Add Competency Row</button>
+              <button class="btn-light" type="button" onclick="buildCompetenciesFromPlanning()">Auto Build from Planning Assignments</button>
+              <button class="btn-secondary" type="button" onclick="saveCompetencyMappings()">Save Competencies</button>
+              <button class="btn-light" type="button" onclick="resetCompetencyMappings()">Reset Module</button>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-2">
+              <div class="soft-panel">
+                <h4 class="panel-title">Live Competency Preview</h4>
+                <div id="competencyPreviewContainer" class="tag-row">
+                  <span class="tag yellow">No competencies mapped yet</span>
+                </div>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Academic and Holistic Value</h4>
+                <p class="panel-text">
+                  This module helps academic leaders see whether subjects, clubs, and vocational programs are only being
+                  planned for activity coverage, or whether they are also contributing to meaningful student skill development.
+                </p>
+                <div class="tag-row">
+                  <span class="tag">Skill Mapping</span>
+                  <span class="tag green">Future Readiness</span>
+                  <span class="tag">Holistic Development</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 8 ==================== -->
+          <section class="module-card" id="module8">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 8</div>
+                <h3 class="module-title">Learning Objectives</h3>
+                <p class="module-desc">
+                  Define the learning objectives hidden behind each subject, club, sport, wellbeing program, or vocational track.
+                  These are the planned intentions before delivery and help the school clarify what students are expected to understand,
+                  apply, create, experience, or improve.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module8StatusText">Not Started</div>
+                <div class="status-meta">Objectives can be added one by one in a clean structured format.</div>
+              </div>
+            </div>
+
+            <div class="info-banner">
+              Learning objectives here are not textbook headings. They represent what the student should understand, practice,
+              apply, reflect on, perform, build, or strengthen after the teaching or activity process.
+              These objectives later support assessments and AI-based academic review.
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-4">
+              <div class="metric-card">
+                <div class="label">Objective Rows</div>
+                <div class="value" id="objectiveRowCount">0</div>
+                <div class="meta">Total offering-wise objective mappings</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Total Objectives</div>
+                <div class="value" id="totalObjectivesCount">0</div>
+                <div class="meta">All individual objectives entered</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Offerings Covered</div>
+                <div class="value" id="objectiveOfferingCount">0</div>
+                <div class="meta">Subjects and programs with objectives</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Objective Readiness</div>
+                <div class="value" id="objectiveReadinessLabel">Basic</div>
+                <div class="meta">Improves as learning depth increases</div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Objective Writing Guidance</h4>
+              <div class="tag-row">
+                <span class="tag">Understand the concept</span>
+                <span class="tag">Apply ideas in context</span>
+                <span class="tag">Build practical skill</span>
+                <span class="tag">Collaborate with others</span>
+                <span class="tag">Communicate clearly</span>
+                <span class="tag green">Think critically</span>
+                <span class="tag">Create or perform meaningfully</span>
+                <span class="tag">Reflect and improve</span>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="table-wrap">
+              <table class="inline-table">
+                <thead>
+                  <tr>
+                    <th style="width:5%;">#</th>
+                    <th style="width:13%;">Subject / Program</th>
+                    <th style="width:12%;">Grades</th>
+                    <th style="width:14%;">Competency Reference</th>
+                    <th style="width:38%;">Learning Objectives</th>
+                    <th style="width:10%;">Teacher / Mentor Intent</th>
+                    <th style="width:8%;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="objectiveMappingBody">
+                  <tr class="objective-empty-row">
+                    <td colspan="7">
+                      <div class="empty-state">
+                        No learning objectives added yet. Start by connecting an offering, grades, competencies, and objective statements.
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" type="button" onclick="addObjectiveRow()">Add Objective Row</button>
+              <button class="btn-light" type="button" onclick="buildObjectivesFromCompetencies()">Auto Build from Competencies</button>
+              <button class="btn-secondary" type="button" onclick="saveObjectiveMappings()">Save Learning Objectives</button>
+              <button class="btn-light" type="button" onclick="resetObjectiveMappings()">Reset Module</button>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-2">
+              <div class="soft-panel">
+                <h4 class="panel-title">Live Objective Preview</h4>
+                <div id="objectivePreviewContainer" class="tag-row">
+                  <span class="tag yellow">No objectives added yet</span>
+                </div>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Why This Matters</h4>
+                <p class="panel-text">
+                  This module clarifies the real learning intention behind each subject and program.
+                  It helps leadership and execution teams move beyond coverage and focus on what learners are expected to gain.
+                </p>
+                <div class="tag-row">
+                  <span class="tag">Teaching Intent</span>
+                  <span class="tag green">Learning Clarity</span>
+                  <span class="tag">Assessment Readiness</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 9 ==================== -->
+          <section class="module-card" id="module9">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 9</div>
+                <h3 class="module-title">Assessment Structure</h3>
+                <p class="module-desc">
+                  Define how students will be assessed across academics, beyond academics, and vocational programs.
+                  The system follows three core assessment domains aligned with modern pedagogy:
+                  Assessment As Learning, Assessment For Learning, and Assessment Of Learning.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module9StatusText">Not Started</div>
+                <div class="status-meta">Assessment framework can evolve dynamically.</div>
+              </div>
+            </div>
+
+            <div class="info-banner">
+              This module defines how learning will be evaluated across subjects, clubs, sports, vocational programs,
+              and experiential learning initiatives.
+              It helps schools move beyond marks-based evaluation into holistic progress measurement.
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-4">
+              <div class="metric-card">
+                <div class="label">Assessment Rows</div>
+                <div class="value" id="assessmentRowCount">0</div>
+                <div class="meta">Total assessment structures created</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Assessment Types</div>
+                <div class="value" id="assessmentTypeCount">0</div>
+                <div class="meta">Unique methods used</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Programs Covered</div>
+                <div class="value" id="assessmentOfferingCount">0</div>
+                <div class="meta">Subjects / Clubs / Skills evaluated</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Evaluation Strength</div>
+                <div class="value" id="assessmentStrengthLabel">Basic</div>
+                <div class="meta">Improves with diversity</div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="table-wrap">
+              <table class="inline-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Offering</th>
+                    <th>Grades</th>
+                    <th>Assessment Domain</th>
+                    <th>Assessment Type</th>
+                    <th>Frequency</th>
+                    <th>Evaluator</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="assessmentTableBody">
+                  <tr class="assessment-empty-row">
+                    <td colspan="8">
+                      <div class="empty-state">No assessment structures added yet.</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" onclick="addAssessmentRow()">Add Assessment</button>
+              <button class="btn-secondary" onclick="saveAssessmentStructure()">Save Assessment</button>
+              <button class="btn-light" onclick="resetAssessmentStructure()">Reset</button>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Assessment Domains</h4>
+              <div class="tag-row">
+                <span class="tag">Assessment As Learning</span>
+                <span class="tag">Assessment For Learning</span>
+                <span class="tag">Assessment Of Learning</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 10 ==================== -->
+          <section class="module-card" id="module10">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 10</div>
+                <h3 class="module-title">AI Readiness Structure</h3>
+                <p class="module-desc">
+                  This module prepares the school's academic and co-curricular structure so that later AI systems can
+                  analyze teaching, assessments, learning progress, program participation, and academic patterns.
+                  It connects offerings, competencies, learning objectives, and assessments into one evidence-ready layer.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module10StatusText">Not Started</div>
+                <div class="status-meta">Preparing the school system for evidence-based AI analysis.</div>
+              </div>
+            </div>
+
+            <div class="info-banner">
+              AI does not work with raw syllabus alone. It requires structured signals. This module connects offering plans,
+              competencies, learning objectives, assessment frequency, and eventual teacher diary evidence so that academic review
+              becomes evidence-based instead of assumption-based.
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-4">
+              <div class="metric-card">
+                <div class="label">Offerings Connected</div>
+                <div class="value" id="aiOfferingCount">0</div>
+                <div class="meta">Subjects and programs mapped for AI analysis</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Grades Covered</div>
+                <div class="value" id="aiGradeCount">0</div>
+                <div class="meta">Grades included in AI observation</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Assessment Signals</div>
+                <div class="value" id="aiAssessmentSignalCount">0</div>
+                <div class="meta">Assessment structures available for monitoring</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Readiness Level</div>
+                <div class="value" id="aiReadinessLabel">Low</div>
+                <div class="meta">Improves as planning evidence increases</div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">AI Analysis Signals</h4>
+              <div class="tag-row">
+                <span class="tag">Teacher Diary Evidence</span>
+                <span class="tag">Assessment Frequency</span>
+                <span class="tag">Objective Coverage</span>
+                <span class="tag">Competency Growth</span>
+                <span class="tag">Program Participation</span>
+                <span class="tag green">Teaching Quality Indicators</span>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-3">
+              <div class="soft-panel">
+                <h4 class="panel-title">Diary-Based Signals</h4>
+                <p class="panel-text">
+                  Teacher diaries become one of the strongest academic signals. AI can observe how often concepts,
+                  skills, and objectives are actually delivered and whether classroom reality matches the planning layer.
+                </p>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Assessment Signals</h4>
+                <p class="panel-text">
+                  AI can compare planned assessments with objective and competency structures to identify whether
+                  evaluation is balanced, frequent enough, and aligned to the right domain.
+                </p>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Leadership Insights</h4>
+                <p class="panel-text">
+                  School leaders later receive structured insights showing where teaching is strong, where evaluation
+                  is weak, and where students or programs may require intervention.
+                </p>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="table-wrap">
+              <table class="inline-table">
+                <thead>
+                  <tr>
+                    <th style="width:15%;">Offering</th>
+                    <th style="width:14%;">Grades</th>
+                    <th style="width:18%;">Competency Signals</th>
+                    <th style="width:18%;">Objective Signals</th>
+                    <th style="width:18%;">Assessment Signals</th>
+                    <th style="width:9%;">Diary Ready</th>
+                    <th style="width:8%;">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="aiStructureBody">
+                  <tr class="ai-empty-row">
+                    <td colspan="7">
+                      <div class="empty-state">
+                        No AI readiness structure generated yet. Build structure from previous modules.
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" onclick="buildAIStructure()">Generate AI Structure</button>
+              <button class="btn-secondary" onclick="saveAIStructure()">Save AI Readiness</button>
+              <button class="btn-light" onclick="resetAIStructure()">Reset Module</button>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-2">
+              <div class="soft-panel">
+                <h4 class="panel-title">AI Monitoring Preview</h4>
+                <div id="aiPreviewContainer" class="tag-row">
+                  <span class="tag yellow">AI structure not generated yet</span>
+                </div>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Why This Matters</h4>
+                <p class="panel-text">
+                  Without structured academic signals, AI becomes guesswork. This module ensures the school's
+                  teaching, assessment, and skill-development data is organized enough for meaningful insights later.
+                </p>
+                <div class="tag-row">
+                  <span class="tag">Academic Intelligence</span>
+                  <span class="tag green">Evidence-Based Review</span>
+                  <span class="tag">Future-Ready School</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 11 ==================== -->
+          <section class="module-card" id="module11">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 11</div>
+                <h3 class="module-title">Complete Leadership View</h3>
+                <p class="module-desc">
+                  A unified dashboard that compiles all module outputs into a single leadership-level summary.
+                  Leaders can see the school's planning health, delegation coverage, competency depth, assessment readiness,
+                  and AI signal strength in one place.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module11StatusText">Auto Updating</div>
+                <div class="status-meta">This module refreshes automatically as other modules are saved.</div>
+              </div>
+            </div>
+
+            <div class="info-banner">
+              This is the school leader's planning cockpit. It does not require any data entry. All information here
+              is drawn from what has been completed in Modules 1 through 10.
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-4">
+              <div class="metric-card">
+                <div class="label">Modules Completed</div>
+                <div class="value" id="leaderModulesCompleted">0 / 10</div>
+                <div class="meta">Modules saved across the portal</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Grades Active</div>
+                <div class="value" id="leaderGradesActive">0</div>
+                <div class="meta">School grades currently in planning</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Subjects + Programs</div>
+                <div class="value" id="leaderOfferingsTotal">0</div>
+                <div class="meta">Total academic and co-curricular offerings</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Planning Stage</div>
+                <div class="value" id="leaderPlanningStage">Draft</div>
+                <div class="meta">Overall school planning readiness</div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-3">
+              <div class="soft-panel">
+                <h4 class="panel-title">School Identity</h4>
+                <div id="leaderSchoolIdentityPreview" class="tag-row">
+                  <span class="tag yellow">School master not yet saved</span>
+                </div>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Active Grades</h4>
+                <div id="leaderGradePreview" class="tag-row">
+                  <span class="tag yellow">No grades selected yet</span>
+                </div>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Offerings Mapped</h4>
+                <div id="leaderOfferingsPreview" class="tag-row">
+                  <span class="tag yellow">No subjects or programs mapped yet</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-2">
+              <div class="soft-panel">
+                <h4 class="panel-title">Delegation Overview</h4>
+                <div id="leaderDelegationPreview" class="tag-row">
+                  <span class="tag yellow">No planning assignments yet</span>
+                </div>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Competency Coverage</h4>
+                <div id="leaderCompetencyPreview" class="tag-row">
+                  <span class="tag yellow">No competencies mapped yet</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="table-wrap">
+              <table class="inline-table">
+                <thead>
+                  <tr>
+                    <th style="width:20%;">Module</th>
+                    <th style="width:20%;">Status</th>
+                    <th style="width:60%;">Summary</th>
+                  </tr>
+                </thead>
+                <tbody id="leaderModuleStatusTable">
+                </tbody>
+              </table>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" type="button" onclick="refreshLeadershipView()">Refresh Leadership View</button>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 12 ==================== -->
+          <section class="module-card" id="module12">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 12</div>
+                <h3 class="module-title">Final Integration Layer</h3>
+                <p class="module-desc">
+                  This module confirms that all previous modules are connected and that the school's planning system
+                  is ready to move from setup to execution. It acts as the final validation and handover layer.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module12StatusText">Pending</div>
+                <div class="status-meta">Completes once all modules are saved and reviewed.</div>
+              </div>
+            </div>
+
+            <div class="info-banner">
+              The integration layer confirms that academic planning, club and program setup, competencies, objectives,
+              assessments, and AI readiness are all connected before the school shifts to classroom execution mode.
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-3">
+              <div class="soft-panel">
+                <h4 class="panel-title">School Foundation</h4>
+                <p class="panel-text">School identity, board, academic year, grades, and leadership context all locked in.</p>
+                <div class="tag-row"><span class="tag" id="integrationFoundationStatus">Pending</span></div>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Curriculum and Programs</h4>
+                <p class="panel-text">Subjects, domains, clubs, sports, arts, vocational tracks and programs all mapped.</p>
+                <div class="tag-row"><span class="tag" id="integrationCurriculumStatus">Pending</span></div>
+              </div>
+              <div class="soft-panel">
+                <h4 class="panel-title">Depth and Evaluation</h4>
+                <p class="panel-text">Competencies, objectives, assessments, delegation, and AI readiness all connected.</p>
+                <div class="tag-row"><span class="tag" id="integrationDepthStatus">Pending</span></div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Integration Validation</h4>
+              <div id="integrationValidationContainer" class="tag-row">
+                <span class="tag yellow">Complete all modules to validate integration</span>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" type="button" onclick="validateIntegration()">Validate Full Integration</button>
+              <button class="btn-secondary" type="button" onclick="markPlanningComplete()">Mark Planning as Complete</button>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="footer-note">
+              Holistic Academic Planning Portal · Leadership Edition · All modules connect into one cohesive planning system.<br>
+              Built for principals, HODs, and school leadership teams committed to structured, delegation-ready, evidence-based academic planning.
+            </div>
+          </section>
+
+        </section><!-- end content-area -->
+      </div><!-- end portal-grid -->
+    </main>
+  </div><!-- end app-shell -->
+
+
+  <!-- ============================================================
+       SHARED STYLES
+  ============================================================ -->
+  <style>
+    .grade-card {
+      border: 1px solid #e3ecf7;
+      border-radius: 16px;
+      padding: 16px;
+      background: #fbfdff;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .grade-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    .grade-card.active {
+      border: 2px solid var(--secondary);
+      background: var(--soft-blue);
+    }
+    .grade-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--secondary);
+    }
+    .grade-meta {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .domain-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .domain-pill {
+      padding: 7px 10px; border-radius: 999px; border: 1px solid #d9e7f7;
+      background: #fff; font-size: 11px; font-weight: 600; color: var(--secondary);
+      cursor: pointer; transition: 0.2s ease; user-select: none;
+    }
+    .domain-pill.active { background: var(--soft-blue); border-color: #bfd7f4; }
+    .domain-pill.academics.active { background: #fff4e8; color: #b85d00; border-color: #ffd8b5; }
+    .domain-pill.beyond.active { background: #eefbf1; color: #22784b; border-color: #cce8d5; }
+    .domain-pill.vocational.active { background: #f5f0ff; color: #6a47c7; border-color: #dacafc; }
+
+    .compact-multi-select { min-height: 92px !important; }
+    .subject-note-box { min-height: 64px !important; }
+
+    .program-pill {
+      border: 1px solid #d9e7f7; border-radius: 999px; padding: 7px 12px;
+      font-size: 11px; cursor: pointer; user-select: none;
+      font-weight: 600; color: var(--secondary); background: #fff;
+    }
+    .program-pill.active { background: var(--soft-blue); }
+    .program-description { min-height: 70px; }
+
+    .competency-select { min-height: auto !important; }
+    .competency-intent-box { min-height: 62px !important; }
+
+    .objective-list-wrap { display: flex; flex-direction: column; gap: 8px; }
+    .objective-chip-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .objective-chip {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 10px;
+      border-radius: 999px; background: #eef5ff; border: 1px solid #d6e6fa;
+      color: var(--secondary); font-size: 11px; font-weight: 600;
+    }
+    .objective-chip button {
+      border: none; background: transparent; color: #b43b3b; font-size: 12px;
+      cursor: pointer; padding: 0; line-height: 1; min-width: auto;
+    }
+    .objective-input-row { display: flex; gap: 8px; align-items: center; }
+    .objective-input-row input { flex: 1; }
+    .objective-note-box { min-height: 62px !important; }
+    .objective-competency-preview { display: flex; flex-wrap: wrap; gap: 6px; }
+  </style>
+
+
+  <!-- ============================================================
+       ALL JAVASCRIPT
+  ============================================================ -->
+  <script>
+    /* ---- Shared helpers ---- */
+    const selectedGrades = [];
+
+    function getGradeOptionsHtml(selectedValues = []) {
+      const grades = selectedGrades.length
+        ? selectedGrades
+        : ["Nursery","LKG","UKG","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
+      return grades.map(g => `<option value="${g}" ${selectedValues.includes(g) ? "selected" : ""}>${g}</option>`).join("");
+    }
+
+    /* ---- Module 1: School Master Details ---- */
+    document.getElementById("schoolName").addEventListener("input", () => {
+      document.getElementById("schoolNamePreview").textContent = document.getElementById("schoolName").value || "-";
+    });
+    document.getElementById("schoolBoard").addEventListener("change", () => {
+      document.getElementById("schoolBoardPreview").textContent = document.getElementById("schoolBoard").value || "-";
+    });
+    document.getElementById("academicYear").addEventListener("input", () => {
+      document.getElementById("schoolYearPreview").textContent = document.getElementById("academicYear").value || "-";
+    });
+    document.getElementById("schoolStrength").addEventListener("input", () => {
+      document.getElementById("schoolStrengthPreview").textContent = document.getElementById("schoolStrength").value || "0";
+    });
+
+    function saveSchoolMasterDetails() {
+      const name = document.getElementById("schoolName").value.trim();
+      const year = document.getElementById("academicYear").value.trim();
+      if (!name) { alert("Please enter the school name."); return; }
+      if (!year) { alert("Please enter the academic year."); return; }
+      document.getElementById("module1StatusText").textContent = "Saved";
+      refreshLeadershipView();
+      alert("School master details saved successfully.");
+    }
+
+    function resetSchoolMasterDetails() {
+      ["schoolName","schoolCode","academicYear","schoolBoard","schoolStrength","principalName","schoolEmail","schoolPhone","schoolVisionLine","planningPriority"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+      document.getElementById("schoolNamePreview").textContent = "-";
+      document.getElementById("schoolBoardPreview").textContent = "-";
+      document.getElementById("schoolYearPreview").textContent = "-";
+      document.getElementById("schoolStrengthPreview").textContent = "0";
+      document.getElementById("module1StatusText").textContent = "Pending";
+      refreshLeadershipView();
+    }
+
+    /* ---- Module 3: Grades ---- */
+    document.querySelectorAll(".grade-card").forEach(card => {
+      card.addEventListener("click", () => {
+        const grade = card.dataset.grade;
+        if (card.classList.contains("active")) {
+          card.classList.remove("active");
+          const idx = selectedGrades.indexOf(grade);
+          if (idx > -1) selectedGrades.splice(idx, 1);
+        } else {
+          card.classList.add("active");
+          selectedGrades.push(grade);
+        }
+        renderSelectedGrades();
+      });
+    });
+
+    function renderSelectedGrades() {
+      const container = document.getElementById("selectedGradesContainer");
+      container.innerHTML = "";
+      if (selectedGrades.length === 0) {
+        container.innerHTML = '<span class="tag yellow">No grades selected yet</span>';
+        document.getElementById("gradeCount").textContent = "0";
+        document.getElementById("schoolSpanLabel").textContent = "-";
+        document.getElementById("gradeReadinessLabel").textContent = "Pending";
+        document.getElementById("heroGradesCount").textContent = "0";
+        return;
+      }
+      selectedGrades.forEach(g => {
+        const tag = document.createElement("span");
+        tag.className = "tag"; tag.textContent = g;
+        container.appendChild(tag);
+      });
+      const orderedGrades = ["Nursery","LKG","UKG","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
+      const activeOrdered = orderedGrades.filter(g => selectedGrades.includes(g));
+      document.getElementById("gradeCount").textContent = String(selectedGrades.length);
+      document.getElementById("schoolSpanLabel").textContent = `${activeOrdered[0]} to ${activeOrdered[activeOrdered.length - 1]}`;
+      document.getElementById("gradeReadinessLabel").textContent = "Active";
+      document.getElementById("heroGradesCount").textContent = String(selectedGrades.length);
+    }
+
+    function saveGrades() {
+      if (selectedGrades.length === 0) { alert("Please select at least one grade."); return; }
+      document.getElementById("module3StatusText").textContent = "Saved";
+      refreshLeadershipView();
+      alert("Grades saved successfully.");
+    }
+
+    function resetGrades() {
+      selectedGrades.length = 0;
+      document.querySelectorAll(".grade-card").forEach(c => c.classList.remove("active"));
+      renderSelectedGrades();
+      document.getElementById("module3StatusText").textContent = "Not Selected";
+      refreshLeadershipView();
+    }
+
+    /* ---- Module 4: Subjects ---- */
+    const subjectMappings = [];
+
+    function getSelectedGradeOptionsHtml(selectedValues = []) {
+      const grades = selectedGrades.length
+        ? selectedGrades
+        : ["Nursery","LKG","UKG","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
+      return grades.map(g => `<option value="${g}" ${selectedValues.includes(g) ? "selected" : ""}>${g}</option>`).join("");
+    }
+
+    function addSubjectRow(subjectName = "", selectedGradesForRow = [], selectedDomainsForRow = [], offeringType = "", subjectNote = "") {
+      const tbody = document.getElementById("subjectMappingBody");
+      const emptyRow = tbody.querySelector(".subject-empty-row");
+      if (emptyRow) emptyRow.remove();
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td class="subject-row-number">${tbody.children.length + 1}</td>
+        <td><input type="text" class="subject-name-input" placeholder="Example: Science / Football / Entrepreneurship" value="${subjectName}"></td>
+        <td>
+          <select class="subject-grade-select compact-multi-select" multiple>${getSelectedGradeOptionsHtml(selectedGradesForRow)}</select>
+          <div class="help-text">Select one or more grades for this subject or offering.</div>
+        </td>
+        <td>
+          <div class="domain-pills">
+            <span class="domain-pill academics ${selectedDomainsForRow.includes("Academics") ? "active" : ""}" data-domain="Academics">Academics</span>
+            <span class="domain-pill beyond ${selectedDomainsForRow.includes("Beyond Academics") ? "active" : ""}" data-domain="Beyond Academics">Beyond Academics</span>
+            <span class="domain-pill vocational ${selectedDomainsForRow.includes("Vocational Skills") ? "active" : ""}" data-domain="Vocational Skills">Vocational Skills</span>
+          </div>
+          <div class="help-text">One offering can belong to more than one domain if needed.</div>
+        </td>
+        <td>
+          <select class="subject-type-select">
+            <option value="">Select type</option>
+            <option value="Subject" ${offeringType === "Subject" ? "selected" : ""}>Subject</option>
+            <option value="Program" ${offeringType === "Program" ? "selected" : ""}>Program</option>
+            <option value="Club" ${offeringType === "Club" ? "selected" : ""}>Club</option>
+            <option value="Sport" ${offeringType === "Sport" ? "selected" : ""}>Sport</option>
+            <option value="Skill Track" ${offeringType === "Skill Track" ? "selected" : ""}>Skill Track</option>
+          </select>
+        </td>
+        <td><textarea class="subject-note-box" placeholder="Optional academic / offering note">${subjectNote}</textarea></td>`;
+      tbody.appendChild(row);
+      row.querySelectorAll(".domain-pill").forEach(pill => pill.addEventListener("click", () => { pill.classList.toggle("active"); recalculateSubjectModule(); }));
+      row.querySelector(".subject-name-input").addEventListener("input", recalculateSubjectModule);
+      row.querySelector(".subject-grade-select").addEventListener("change", recalculateSubjectModule);
+      row.querySelector(".subject-type-select").addEventListener("change", recalculateSubjectModule);
+      recalculateSubjectModule();
+    }
+
+    function addSuggestedSubjects() {
+      if (selectedGrades.length === 0) { alert("Please complete Module 3 first by selecting grades."); return; }
+      addSubjectRow("English", [...selectedGrades], ["Academics"], "Subject", "");
+      addSubjectRow("Science", [...selectedGrades.filter(g => !["Nursery","LKG","UKG","Grade 1","Grade 2"].includes(g))], ["Academics"], "Subject", "");
+      addSubjectRow("Football", [...selectedGrades.filter(g => !["Nursery","LKG","UKG"].includes(g))], ["Beyond Academics"], "Sport", "");
+      addSubjectRow("Music", [...selectedGrades], ["Beyond Academics"], "Program", "");
+      addSubjectRow("Entrepreneurship", [...selectedGrades.filter(g => !["Nursery","LKG","UKG","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7"].includes(g))], ["Vocational Skills"], "Skill Track", "");
+    }
+
+    function collectSubjectMappings() {
+      const rows = document.querySelectorAll("#subjectMappingBody tr");
+      const data = [];
+      rows.forEach(row => {
+        if (row.classList.contains("subject-empty-row")) return;
+        data.push({
+          subjectName: row.querySelector(".subject-name-input")?.value.trim() || "",
+          grades: Array.from(row.querySelector(".subject-grade-select")?.selectedOptions || []).map(o => o.value),
+          domains: Array.from(row.querySelectorAll(".domain-pill.active")).map(p => p.dataset.domain),
+          offeringType: row.querySelector(".subject-type-select")?.value || "",
+          note: row.querySelector(".subject-note-box")?.value.trim() || ""
+        });
+      });
+      return data;
+    }
+
+    function recalculateSubjectModule() {
+      const data = collectSubjectMappings();
+      subjectMappings.length = 0;
+      data.forEach(item => subjectMappings.push(item));
+      const uniqueSubjects = [...new Set(data.map(i => i.subjectName).filter(Boolean))];
+      const usedDomains = [...new Set(data.flatMap(i => i.domains))];
+      document.getElementById("subjectRowCount").textContent = String(data.length);
+      document.getElementById("uniqueSubjectCount").textContent = String(uniqueSubjects.length);
+      document.getElementById("domainCoverageCount").textContent = String(usedDomains.length);
+      document.getElementById("heroSubjectsCount").textContent = String(uniqueSubjects.length);
+      const domainSummary = document.getElementById("domainSummaryContainer");
+      domainSummary.innerHTML = "";
+      if (usedDomains.length === 0) {
+        domainSummary.innerHTML = `<span class="tag yellow">No domains mapped yet</span>`;
+      } else {
+        usedDomains.forEach(domain => {
+          const span = document.createElement("span");
+          span.className = "tag";
+          if (domain === "Academics") span.classList.add("orange");
+          if (domain === "Beyond Academics") span.classList.add("green");
+          if (domain === "Vocational Skills") span.classList.add("purple");
+          span.textContent = domain;
+          domainSummary.appendChild(span);
+        });
+      }
+      const subjectPreview = document.getElementById("subjectPreviewContainer");
+      subjectPreview.innerHTML = "";
+      if (uniqueSubjects.length === 0) {
+        subjectPreview.innerHTML = `<span class="tag yellow">No subjects mapped yet</span>`;
+      } else {
+        uniqueSubjects.forEach(s => {
+          const span = document.createElement("span");
+          span.className = "tag"; span.textContent = s;
+          subjectPreview.appendChild(span);
+        });
+      }
+    }
+
+    function saveSubjectMappings() {
+      const data = collectSubjectMappings();
+      if (selectedGrades.length === 0) { alert("Please complete Module 3 first by selecting grades."); return; }
+      if (data.length === 0) { alert("Please add at least one subject or offering row."); return; }
+      const invalidRow = data.find(item => !item.subjectName || item.grades.length === 0 || item.domains.length === 0 || !item.offeringType);
+      if (invalidRow) { alert("Each row must include a name, at least one grade, at least one domain, and a type."); return; }
+      document.getElementById("module4StatusText").textContent = "Saved";
+      refreshLeadershipView();
+      alert("Subject and offering mappings saved successfully.");
+    }
+
+    function resetSubjectMappings() {
+      document.getElementById("subjectMappingBody").innerHTML = `<tr class="subject-empty-row"><td colspan="6"><div class="empty-state">No subjects added yet. Start by creating the school's first subject or offering mapping.</div></td></tr>`;
+      subjectMappings.length = 0;
+      document.getElementById("module4StatusText").textContent = "Not Started";
+      recalculateSubjectModule();
+      refreshLeadershipView();
+    }
+
+    /* ---- Module 5: Programs ---- */
+    const programMappings = [];
+
+    function getProgramGradesHtml(selected = []) {
+      const grades = selectedGrades.length
+        ? selectedGrades
+        : ["Nursery","LKG","UKG","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
+      return grades.map(g => `<option value="${g}" ${selected.includes(g) ? "selected" : ""}>${g}</option>`).join("");
+    }
+
+    function addProgramRow(name = "", grades = [], category = "", type = "", desc = "") {
+      const body = document.getElementById("programBody");
+      const empty = body.querySelector(".program-empty");
+      if (empty) empty.remove();
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${body.children.length + 1}</td>
+        <td><input type="text" class="program-name" placeholder="Example: Football Club / Robotics / Theatre" value="${name}"></td>
+        <td><select multiple class="program-grades">${getProgramGradesHtml(grades)}</select></td>
+        <td>
+          <select class="program-category">
+            <option value="">Select Category</option>
+            <option ${category === "Clubs" ? "selected" : ""}>Clubs</option>
+            <option ${category === "Sports" ? "selected" : ""}>Sports</option>
+            <option ${category === "Arts" ? "selected" : ""}>Arts</option>
+            <option ${category === "Culture" ? "selected" : ""}>Culture</option>
+            <option ${category === "Leadership" ? "selected" : ""}>Leadership</option>
+            <option ${category === "Wellbeing" ? "selected" : ""}>Wellbeing</option>
+            <option ${category === "Vocational Skills" ? "selected" : ""}>Vocational Skills</option>
+          </select>
+        </td>
+        <td>
+          <select class="program-type">
+            <option value="">Type</option>
+            <option ${type === "Club" ? "selected" : ""}>Club</option>
+            <option ${type === "Program" ? "selected" : ""}>Program</option>
+            <option ${type === "Skill Track" ? "selected" : ""}>Skill Track</option>
+          </select>
+        </td>
+        <td><textarea class="program-description" placeholder="Optional program note">${desc}</textarea></td>`;
+      body.appendChild(row);
+      row.querySelectorAll("input,select,textarea").forEach(el => {
+        el.addEventListener("change", recalculatePrograms);
+        el.addEventListener("input", recalculatePrograms);
+      });
+      recalculatePrograms();
+    }
+
+    function addSuggestedPrograms() {
+      if (selectedGrades.length === 0) { alert("Please configure grades first in Module 3."); return; }
+      addProgramRow("Football Club", selectedGrades, "Sports", "Club", "");
+      addProgramRow("Music Program", selectedGrades, "Arts", "Program", "");
+      addProgramRow("Robotics", selectedGrades, "Vocational Skills", "Skill Track", "");
+      addProgramRow("Student Leadership Council", selectedGrades, "Leadership", "Program", "");
+      addProgramRow("Wellbeing & Mindfulness", selectedGrades, "Wellbeing", "Program", "");
+    }
+
+    function collectPrograms() {
+      const rows = document.querySelectorAll("#programBody tr");
+      const data = [];
+      rows.forEach(row => {
+        if (row.classList.contains("program-empty")) return;
+        data.push({
+          name: row.querySelector(".program-name")?.value.trim() || "",
+          grades: Array.from(row.querySelector(".program-grades")?.selectedOptions || []).map(o => o.value),
+          category: row.querySelector(".program-category")?.value || "",
+          type: row.querySelector(".program-type")?.value || "",
+          desc: row.querySelector(".program-description")?.value || ""
+        });
+      });
+      return data;
+    }
+
+    function recalculatePrograms() {
+      const data = collectPrograms();
+      programMappings.length = 0;
+      data.forEach(p => programMappings.push(p));
+      const categories = [...new Set(data.map(p => p.category).filter(Boolean))];
+      const names = [...new Set(data.map(p => p.name).filter(Boolean))];
+      document.getElementById("programCount").textContent = data.length;
+      document.getElementById("programCategoryCount").textContent = categories.length;
+      document.getElementById("programGradeCoverage").textContent = data.reduce((acc, p) => acc + p.grades.length, 0);
+      document.getElementById("heroProgramsCount").textContent = String(names.length);
+
+      const categoryPreview = document.getElementById("programCategoryPreview");
+      categoryPreview.innerHTML = "";
+      if (categories.length === 0) {
+        categoryPreview.innerHTML = '<span class="tag yellow">No categories used yet</span>';
+      } else {
+        categories.forEach(c => { const span = document.createElement("span"); span.className = "tag"; span.textContent = c; categoryPreview.appendChild(span); });
+      }
+      const preview = document.getElementById("programPreview");
+      preview.innerHTML = "";
+      if (names.length === 0) {
+        preview.innerHTML = '<span class="tag yellow">No programs created yet</span>';
+      } else {
+        names.forEach(n => { const span = document.createElement("span"); span.className = "tag"; span.textContent = n; preview.appendChild(span); });
+      }
+    }
+
+    function savePrograms() {
+      const data = collectPrograms();
+      if (data.length === 0) { alert("Please add at least one program."); return; }
+      const invalid = data.find(p => !p.name || !p.category || !p.type);
+      if (invalid) { alert("Each program row must have a name, category and type."); return; }
+      document.getElementById("module5StatusText").textContent = "Saved";
+      refreshLeadershipView();
+      alert("Programs saved successfully.");
+    }
+
+    function resetPrograms() {
+      document.getElementById("programBody").innerHTML = `<tr class="program-empty"><td colspan="6"><div class="empty-state">No programs defined yet. Add the first club, sports program, or vocational track.</div></td></tr>`;
+      programMappings.length = 0;
+      document.getElementById("module5StatusText").textContent = "Not Started";
+      recalculatePrograms();
+      refreshLeadershipView();
+    }
+
+    /* ---- Module 6: Planning Assignments ---- */
+    const planningAssignments = [];
+
+    function getAllOfferingsForPlanning() {
+      const subjects = collectSubjectMappings().map(item => ({ name: item.subjectName, grades: item.grades || [], domains: item.domains || [], sourceType: "Subject" }));
+      const programs = collectPrograms().map(item => ({ name: item.name, grades: item.grades || [], domains: item.category ? [item.category] : [], sourceType: item.type || "Program" }));
+      return [...subjects, ...programs].filter(item => item.name);
+    }
+
+    function getPlanningOfferingOptionsHtml(selectedValue = "") {
+      const offerings = getAllOfferingsForPlanning();
+      const uniqueNames = [...new Set(offerings.map(item => item.name))];
+      return `<option value="">Select offering</option>${uniqueNames.map(name => `<option value="${name}" ${selectedValue === name ? "selected" : ""}>${name}</option>`).join("")}`;
+    }
+
+    function getPlanningGradeOptionsHtml(selectedValues = [], offeringName = "") {
+      let grades = selectedGrades.length ? [...selectedGrades] : ["Nursery","LKG","UKG","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
+      if (offeringName) {
+        const offering = getAllOfferingsForPlanning().find(item => item.name === offeringName);
+        if (offering && offering.grades && offering.grades.length) grades = offering.grades;
+      }
+      return `<select class="planning-grade-select compact-multi-select" multiple>${grades.map(grade => `<option value="${grade}" ${selectedValues.includes(grade) ? "selected" : ""}>${grade}</option>`).join("")}</select>`;
+    }
+
+    function getPlanningDomainPreview(offeringName = "") {
+      const offering = getAllOfferingsForPlanning().find(item => item.name === offeringName);
+      const domains = offering ? (offering.domains || []) : [];
+      if (!domains.length) return `<span class="tag yellow">No domain linked</span>`;
+      return domains.map(domain => `<span class="table-chip">${domain}</span>`).join("");
+    }
+
+    function addPlanningAssignmentRow(config = {}) {
+      const tbody = document.getElementById("planningAssignmentBody");
+      const emptyRow = tbody.querySelector(".planning-empty-row");
+      if (emptyRow) emptyRow.remove();
+      const { offering = "", grades = [], ownerRole = "", primaryOwner = "", supportOwner = "", planningScope = "", status = "Not Started" } = config;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="planning-row-number">${tbody.children.length + 1}</td>
+        <td><select class="planning-offering-select">${getPlanningOfferingOptionsHtml(offering)}</select></td>
+        <td class="planning-grade-cell">${getPlanningGradeOptionsHtml(grades, offering)}</td>
+        <td class="planning-domain-cell">${getPlanningDomainPreview(offering)}</td>
+        <td>
+          <select class="planning-role-select">
+            <option value="">Select role</option>
+            <option value="HOD" ${ownerRole === "HOD" ? "selected" : ""}>HOD</option>
+            <option value="Subject Teacher" ${ownerRole === "Subject Teacher" ? "selected" : ""}>Subject Teacher</option>
+            <option value="Club Mentor" ${ownerRole === "Club Mentor" ? "selected" : ""}>Club Mentor</option>
+            <option value="Sports Coach" ${ownerRole === "Sports Coach" ? "selected" : ""}>Sports Coach</option>
+            <option value="Activity In-charge" ${ownerRole === "Activity In-charge" ? "selected" : ""}>Activity In-charge</option>
+            <option value="Wellbeing Coordinator" ${ownerRole === "Wellbeing Coordinator" ? "selected" : ""}>Wellbeing Coordinator</option>
+            <option value="Vocational Trainer" ${ownerRole === "Vocational Trainer" ? "selected" : ""}>Vocational Trainer</option>
+          </select>
+        </td>
+        <td><input type="text" class="planning-primary-owner-input" placeholder="Enter primary owner name" value="${primaryOwner}"></td>
+        <td><input type="text" class="planning-support-owner-input" placeholder="Enter support owner name" value="${supportOwner}"></td>
+        <td><textarea class="planning-scope-box" placeholder="Example: term planning, activity sequence, skill delivery">${planningScope}</textarea></td>
+        <td>
+          <select class="planning-status-select">
+            <option value="Not Started" ${status === "Not Started" ? "selected" : ""}>Not Started</option>
+            <option value="Assigned" ${status === "Assigned" ? "selected" : ""}>Assigned</option>
+            <option value="In Progress" ${status === "In Progress" ? "selected" : ""}>In Progress</option>
+            <option value="Reviewed" ${status === "Reviewed" ? "selected" : ""}>Reviewed</option>
+          </select>
+        </td>`;
+      tbody.appendChild(tr);
+
+      const offeringSelect = tr.querySelector(".planning-offering-select");
+      const gradeCell = tr.querySelector(".planning-grade-cell");
+      const domainCell = tr.querySelector(".planning-domain-cell");
+
+      function syncPlanningRowFromOffering() {
+        const selectedOffering = offeringSelect.value;
+        const currentGrades = Array.from(tr.querySelectorAll(".planning-grade-select option:checked")).map(opt => opt.value);
+        gradeCell.innerHTML = getPlanningGradeOptionsHtml(currentGrades, selectedOffering);
+        domainCell.innerHTML = getPlanningDomainPreview(selectedOffering);
+        const gradeSelect = gradeCell.querySelector(".planning-grade-select");
+        if (gradeSelect) gradeSelect.addEventListener("change", recalculatePlanningAssignments);
+        recalculatePlanningAssignments();
+      }
+
+      offeringSelect.addEventListener("change", syncPlanningRowFromOffering);
+      tr.querySelector(".planning-role-select").addEventListener("change", recalculatePlanningAssignments);
+      tr.querySelector(".planning-primary-owner-input").addEventListener("input", recalculatePlanningAssignments);
+      tr.querySelector(".planning-support-owner-input").addEventListener("input", recalculatePlanningAssignments);
+      tr.querySelector(".planning-scope-box").addEventListener("input", recalculatePlanningAssignments);
+      tr.querySelector(".planning-status-select").addEventListener("change", recalculatePlanningAssignments);
+      const gradeSelect = tr.querySelector(".planning-grade-select");
+      if (gradeSelect) gradeSelect.addEventListener("change", recalculatePlanningAssignments);
+      if (offering) syncPlanningRowFromOffering();
+      else recalculatePlanningAssignments();
+    }
+
+    function buildAssignmentsFromOfferings() {
+      const offerings = getAllOfferingsForPlanning();
+      if (offerings.length === 0) { alert("Please complete Modules 4 and 5 first by mapping subjects and programs."); return; }
+      resetPlanningAssignments(true);
+      offerings.forEach(item => addPlanningAssignmentRow({ offering: item.name, grades: item.grades || [], status: "Assigned" }));
+      recalculatePlanningAssignments();
+    }
+
+    function collectPlanningAssignments() {
+      const rows = document.querySelectorAll("#planningAssignmentBody tr");
+      const data = [];
+      rows.forEach(row => {
+        if (row.classList.contains("planning-empty-row")) return;
+        const offering = row.querySelector(".planning-offering-select")?.value || "";
+        const grades = Array.from(row.querySelector(".planning-grade-select")?.selectedOptions || []).map(opt => opt.value);
+        const offeringMeta = getAllOfferingsForPlanning().find(item => item.name === offering);
+        data.push({
+          offering, grades,
+          domains: offeringMeta ? (offeringMeta.domains || []) : [],
+          sourceType: offeringMeta ? (offeringMeta.sourceType || "") : "",
+          ownerRole: row.querySelector(".planning-role-select")?.value || "",
+          primaryOwner: row.querySelector(".planning-primary-owner-input")?.value.trim() || "",
+          supportOwner: row.querySelector(".planning-support-owner-input")?.value.trim() || "",
+          planningScope: row.querySelector(".planning-scope-box")?.value.trim() || "",
+          status: row.querySelector(".planning-status-select")?.value || "Not Started"
+        });
+      });
+      return data;
+    }
+
+    function recalculatePlanningAssignments() {
+      const data = collectPlanningAssignments();
+      planningAssignments.length = 0;
+      data.forEach(item => planningAssignments.push(item));
+      const uniqueOwners = [...new Set(data.flatMap(item => [item.primaryOwner, item.supportOwner]).filter(Boolean))];
+      const uniqueOfferings = [...new Set(data.map(item => item.offering).filter(Boolean))];
+      document.getElementById("planningAssignmentCount").textContent = String(data.length);
+      document.getElementById("mappedOwnerCount").textContent = String(uniqueOwners.length);
+      document.getElementById("delegatedOfferingCount").textContent = String(uniqueOfferings.length);
+      let strength = "Basic";
+      if (data.length >= 4) strength = "Developing";
+      if (data.length >= 8) strength = "Strong";
+      if (data.length >= 12) strength = "Advanced";
+      document.getElementById("delegationStrengthLabel").textContent = strength;
+      const preview = document.getElementById("planningOwnershipPreview");
+      preview.innerHTML = "";
+      if (data.length === 0) {
+        preview.innerHTML = `<span class="tag yellow">No ownership mapping yet</span>`;
+      } else {
+        data.forEach(item => {
+          const text = `${item.offering || "Offering"} → ${item.primaryOwner || "Owner Pending"}`;
+          const span = document.createElement("span");
+          span.className = "tag";
+          if (item.status === "Assigned") span.classList.add("green");
+          if (item.status === "In Progress") span.classList.add("orange");
+          if (item.status === "Reviewed") span.classList.add("purple");
+          span.textContent = text;
+          preview.appendChild(span);
+        });
+      }
+    }
+
+    function savePlanningAssignments() {
+      const data = collectPlanningAssignments();
+      if (getAllOfferingsForPlanning().length === 0) { alert("Please complete Modules 4 and 5 first by mapping subjects and programs."); return; }
+      if (data.length === 0) { alert("Please add at least one planning assignment row."); return; }
+      const invalid = data.find(item => !item.offering || item.grades.length === 0 || !item.ownerRole || !item.primaryOwner);
+      if (invalid) { alert("Each planning assignment must include an offering, at least one grade, an owner role, and a primary owner."); return; }
+      document.getElementById("module6StatusText").textContent = "Saved";
+      refreshLeadershipView();
+      alert("Planning assignments saved successfully.");
+    }
+
+    function resetPlanningAssignments(skipAlert = false) {
+      document.getElementById("planningAssignmentBody").innerHTML = `<tr class="planning-empty-row"><td colspan="9"><div class="empty-state">No planning assignments created yet. Start by mapping a subject or program to its responsible owner.</div></td></tr>`;
+      planningAssignments.length = 0;
+      document.getElementById("module6StatusText").textContent = "Not Started";
+      recalculatePlanningAssignments();
+      refreshLeadershipView();
+    }
+
+    /* ---- Module 7: Competencies ---- */
+    const competencyMappings = [];
+    const suggestedCompetencies = [
+      "C1.1 - Critical Thinking and Reasoning","C1.2 - Problem Solving in Real Contexts","C1.3 - Communication and Expression","C1.4 - Collaboration and Team Participation",
+      "C2.1 - Creativity and Innovation","C2.2 - Digital Literacy and Tool Use","C2.3 - Ethical Decision Making","C2.4 - Self-Management and Responsibility",
+      "C3.1 - Inquiry and Curiosity","C3.2 - Data Interpretation and Analysis","C3.3 - Application of Concepts","C3.4 - Leadership and Initiative",
+      "C4.1 - Physical Coordination and Endurance","C4.2 - Emotional Awareness and Wellbeing","C4.3 - Entrepreneurial Thinking","C4.4 - Project Execution and Ownership"
+    ];
+
+    function getPlanningOfferingOptionsHtmlForCompetency(selectedValue = "") {
+      const offerings = [...new Set(collectPlanningAssignments().map(item => item.offering).filter(Boolean))];
+      return `<option value="">Select offering</option>${offerings.map(o => `<option value="${o}" ${selectedValue === o ? "selected" : ""}>${o}</option>`).join("")}`;
+    }
+
+    function getCompetencyGradesOptionsHtml(selectedValues = [], offering = "") {
+      let grades = selectedGrades.length ? [...selectedGrades] : ["Nursery","LKG","UKG","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
+      if (offering) {
+        const planningRow = collectPlanningAssignments().find(item => item.offering === offering);
+        if (planningRow && planningRow.grades && planningRow.grades.length) grades = planningRow.grades;
+      }
+      return `<select class="competency-grade-select compact-multi-select" multiple>${grades.map(g => `<option value="${g}" ${selectedValues.includes(g) ? "selected" : ""}>${g}</option>`).join("")}</select>`;
+    }
+
+    function getPlanningOwnerPreviewForCompetency(offering = "") {
+      const planningRow = collectPlanningAssignments().find(item => item.offering === offering);
+      if (!planningRow) return `<span class="tag yellow">Not linked yet</span>`;
+      return `<div class="tag-row" style="margin-top:0;"><span class="table-chip">${planningRow.primaryOwner || "Owner Pending"}</span><span class="table-chip">${planningRow.supportOwner || "Support Pending"}</span></div>`;
+    }
+
+    function getSuggestedCompetencyOptionsHtml(selectedValue = "") {
+      return `<option value="">Select suggested competency</option>${suggestedCompetencies.map(item => `<option value="${item}" ${selectedValue === item ? "selected" : ""}>${item}</option>`).join("")}`;
+    }
+
+    function addCompetencyRow(config = {}) {
+      const tbody = document.getElementById("competencyMappingBody");
+      const emptyRow = tbody.querySelector(".competency-empty-row");
+      if (emptyRow) emptyRow.remove();
+      const { offering = "", grades = [], suggestedCompetency = "", customCompetency = "", skillIntent = "" } = config;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="competency-row-number">${tbody.children.length + 1}</td>
+        <td><select class="competency-offering-select">${getPlanningOfferingOptionsHtmlForCompetency(offering)}</select></td>
+        <td class="competency-grade-cell">${getCompetencyGradesOptionsHtml(grades, offering)}</td>
+        <td class="competency-owner-cell">${getPlanningOwnerPreviewForCompetency(offering)}</td>
+        <td><select class="competency-select">${getSuggestedCompetencyOptionsHtml(suggestedCompetency)}</select></td>
+        <td><input type="text" class="custom-competency-input" placeholder="Or enter custom competency" value="${customCompetency}"></td>
+        <td><textarea class="competency-intent-box" placeholder="Why is this skill important in this subject or program?">${skillIntent}</textarea></td>
+        <td><button class="btn-danger" type="button" onclick="deleteCompetencyRow(this)">Delete</button></td>`;
+      tbody.appendChild(tr);
+
+      const offeringSelect = tr.querySelector(".competency-offering-select");
+      const gradeCell = tr.querySelector(".competency-grade-cell");
+      const ownerCell = tr.querySelector(".competency-owner-cell");
+
+      function syncCompetencyRow() {
+        const selectedOffering = offeringSelect.value;
+        const currentGrades = Array.from(tr.querySelectorAll(".competency-grade-select option:checked")).map(opt => opt.value);
+        gradeCell.innerHTML = getCompetencyGradesOptionsHtml(currentGrades, selectedOffering);
+        ownerCell.innerHTML = getPlanningOwnerPreviewForCompetency(selectedOffering);
+        gradeCell.querySelector(".competency-grade-select").addEventListener("change", recalculateCompetencyMappings);
+        recalculateCompetencyMappings();
+      }
+
+      offeringSelect.addEventListener("change", syncCompetencyRow);
+      tr.querySelector(".competency-select").addEventListener("change", recalculateCompetencyMappings);
+      tr.querySelector(".custom-competency-input").addEventListener("input", recalculateCompetencyMappings);
+      tr.querySelector(".competency-intent-box").addEventListener("input", recalculateCompetencyMappings);
+      const gradeSelect = tr.querySelector(".competency-grade-select");
+      if (gradeSelect) gradeSelect.addEventListener("change", recalculateCompetencyMappings);
+      if (offering) syncCompetencyRow();
+      else recalculateCompetencyMappings();
+    }
+
+    function deleteCompetencyRow(button) {
+      button.closest("tr").remove();
+      const tbody = document.getElementById("competencyMappingBody");
+      if (!tbody.children.length) tbody.innerHTML = `<tr class="competency-empty-row"><td colspan="8"><div class="empty-state">No competencies mapped yet. Start by linking competencies to a subject or program planning row.</div></td></tr>`;
+      recalculateCompetencyMappings();
+    }
+
+    function collectCompetencyMappings() {
+      const rows = document.querySelectorAll("#competencyMappingBody tr");
+      const data = [];
+      rows.forEach(row => {
+        if (row.classList.contains("competency-empty-row")) return;
+        const offering = row.querySelector(".competency-offering-select")?.value || "";
+        const grades = Array.from(row.querySelector(".competency-grade-select")?.selectedOptions || []).map(opt => opt.value);
+        const planningRow = collectPlanningAssignments().find(item => item.offering === offering);
+        data.push({
+          offering, grades,
+          primaryOwner: planningRow ? (planningRow.primaryOwner || "") : "",
+          supportOwner: planningRow ? (planningRow.supportOwner || "") : "",
+          suggestedCompetency: row.querySelector(".competency-select")?.value || "",
+          customCompetency: row.querySelector(".custom-competency-input")?.value.trim() || "",
+          skillIntent: row.querySelector(".competency-intent-box")?.value.trim() || ""
+        });
+      });
+      return data;
+    }
+
+    function recalculateCompetencyMappings() {
+      const data = collectCompetencyMappings();
+      competencyMappings.length = 0;
+      data.forEach(item => competencyMappings.push(item));
+      const uniqueCompetencies = [...new Set(data.map(item => item.customCompetency || item.suggestedCompetency).filter(Boolean))];
+      const uniqueOfferings = [...new Set(data.map(item => item.offering).filter(Boolean))];
+      document.getElementById("competencyRowCount").textContent = String(data.length);
+      document.getElementById("uniqueCompetencyCount").textContent = String(uniqueCompetencies.length);
+      document.getElementById("competencyOfferingCount").textContent = String(uniqueOfferings.length);
+      let depth = "Basic";
+      if (data.length >= 4) depth = "Developing";
+      if (data.length >= 8) depth = "Strong";
+      if (data.length >= 12) depth = "Advanced";
+      document.getElementById("competencyDepthLabel").textContent = depth;
+      const preview = document.getElementById("competencyPreviewContainer");
+      preview.innerHTML = "";
+      if (uniqueCompetencies.length === 0) {
+        preview.innerHTML = `<span class="tag yellow">No competencies mapped yet</span>`;
+      } else {
+        uniqueCompetencies.forEach(item => { const span = document.createElement("span"); span.className = "tag"; span.textContent = item; preview.appendChild(span); });
+      }
+    }
+
+    function buildCompetenciesFromPlanning() {
+      const planningData = collectPlanningAssignments();
+      if (planningData.length === 0) { alert("Please complete Module 6 first by creating planning assignments."); return; }
+      resetCompetencyMappings(true);
+      planningData.forEach(item => addCompetencyRow({ offering: item.offering, grades: item.grades || [] }));
+      recalculateCompetencyMappings();
+    }
+
+    function saveCompetencyMappings() {
+      const data = collectCompetencyMappings();
+      if (planningAssignments.length === 0) { alert("Please complete Module 6 first by creating planning assignments."); return; }
+      if (data.length === 0) { alert("Please add at least one competency row."); return; }
+      const invalid = data.find(item => !item.offering || item.grades.length === 0 || (!item.suggestedCompetency && !item.customCompetency));
+      if (invalid) { alert("Each competency row must include an offering, at least one grade, and either a suggested or custom competency."); return; }
+      document.getElementById("module7StatusText").textContent = "Saved";
+      refreshLeadershipView();
+      alert("Competency mappings saved successfully.");
+    }
+
+    function resetCompetencyMappings(skipAlert = false) {
+      document.getElementById("competencyMappingBody").innerHTML = `<tr class="competency-empty-row"><td colspan="8"><div class="empty-state">No competencies mapped yet. Start by linking competencies to a subject or program planning row.</div></td></tr>`;
+      competencyMappings.length = 0;
+      document.getElementById("module7StatusText").textContent = "Not Started";
+      recalculateCompetencyMappings();
+      refreshLeadershipView();
+    }
+
+    /* ---- Module 8: Learning Objectives ---- */
+    const objectiveMappings = [];
+
+    function getCompetencyOfferingOptionsHtml(selectedValue = "") {
+      const offerings = [...new Set(collectCompetencyMappings().map(item => item.offering).filter(Boolean))];
+      return `<option value="">Select offering</option>${offerings.map(o => `<option value="${o}" ${selectedValue === o ? "selected" : ""}>${o}</option>`).join("")}`;
+    }
+
+    function getObjectiveGradeOptionsHtml(selectedValues = [], offering = "") {
+      let grades = selectedGrades.length ? [...selectedGrades] : ["Nursery","LKG","UKG","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
+      if (offering) {
+        const competencyRow = collectCompetencyMappings().find(item => item.offering === offering);
+        if (competencyRow && competencyRow.grades && competencyRow.grades.length) grades = competencyRow.grades;
+      }
+      return `<select class="objective-grade-select compact-multi-select" multiple>${grades.map(g => `<option value="${g}" ${selectedValues.includes(g) ? "selected" : ""}>${g}</option>`).join("")}</select>`;
+    }
+
+    function getCompetencyPreviewForObjective(offering = "") {
+      const rows = collectCompetencyMappings().filter(item => item.offering === offering);
+      const competencies = [...new Set(rows.map(item => item.customCompetency || item.suggestedCompetency).filter(Boolean))];
+      if (!competencies.length) return `<span class="tag yellow">No competency linked yet</span>`;
+      return `<div class="objective-competency-preview">${competencies.map(item => `<span class="table-chip">${item}</span>`).join("")}</div>`;
+    }
+
+    function createObjectiveChipsMarkup(items = []) {
+      if (!items.length) return `<span class="tag yellow">No objectives added</span>`;
+      return items.map((item, index) => `<span class="objective-chip">${item}<button type="button" onclick="removeObjectiveChip(this, ${index})">✕</button></span>`).join("");
+    }
+
+    function addObjectiveRow(config = {}) {
+      const tbody = document.getElementById("objectiveMappingBody");
+      const emptyRow = tbody.querySelector(".objective-empty-row");
+      if (emptyRow) emptyRow.remove();
+      const { offering = "", grades = [], objectives = [], teacherIntent = "" } = config;
+      const tr = document.createElement("tr");
+      tr.dataset.objectives = JSON.stringify(objectives);
+      tr.innerHTML = `
+        <td class="objective-row-number">${tbody.children.length + 1}</td>
+        <td><select class="objective-offering-select">${getCompetencyOfferingOptionsHtml(offering)}</select></td>
+        <td class="objective-grade-cell">${getObjectiveGradeOptionsHtml(grades, offering)}</td>
+        <td class="objective-competency-cell">${getCompetencyPreviewForObjective(offering)}</td>
+        <td>
+          <div class="objective-list-wrap">
+            <div class="objective-input-row">
+              <input type="text" class="objective-entry-input" placeholder="Enter objective and click add">
+              <button class="btn-light" type="button" onclick="addObjectiveChip(this)">Add</button>
+            </div>
+            <div class="help-text">You can add multiple objectives one by one. Comma-separated text also works.</div>
+            <div class="objective-chip-list">${createObjectiveChipsMarkup(objectives)}</div>
+          </div>
+        </td>
+        <td><textarea class="objective-note-box" placeholder="Teacher / mentor intent note">${teacherIntent}</textarea></td>
+        <td><button class="btn-danger" type="button" onclick="deleteObjectiveRow(this)">Delete</button></td>`;
+      tbody.appendChild(tr);
+
+      const offeringSelect = tr.querySelector(".objective-offering-select");
+      const gradeCell = tr.querySelector(".objective-grade-cell");
+      const competencyCell = tr.querySelector(".objective-competency-cell");
+
+      function syncObjectiveRow() {
+        const selectedOffering = offeringSelect.value;
+        const currentGrades = Array.from(tr.querySelectorAll(".objective-grade-select option:checked")).map(opt => opt.value);
+        gradeCell.innerHTML = getObjectiveGradeOptionsHtml(currentGrades, selectedOffering);
+        competencyCell.innerHTML = getCompetencyPreviewForObjective(selectedOffering);
+        const gradeSelect = gradeCell.querySelector(".objective-grade-select");
+        if (gradeSelect) gradeSelect.addEventListener("change", recalculateObjectiveMappings);
+        recalculateObjectiveMappings();
+      }
+
+      offeringSelect.addEventListener("change", syncObjectiveRow);
+      tr.querySelector(".objective-note-box").addEventListener("input", recalculateObjectiveMappings);
+      const input = tr.querySelector(".objective-entry-input");
+      input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); addObjectiveChip(input.nextElementSibling); } });
+      const gradeSelect = tr.querySelector(".objective-grade-select");
+      if (gradeSelect) gradeSelect.addEventListener("change", recalculateObjectiveMappings);
+      if (offering) syncObjectiveRow();
+      else recalculateObjectiveMappings();
+    }
+
+    function addObjectiveChip(button) {
+      const row = button.closest("tr");
+      const input = row.querySelector(".objective-entry-input");
+      const chipList = row.querySelector(".objective-chip-list");
+      const currentObjectives = JSON.parse(row.dataset.objectives || "[]");
+      const rawValue = input.value.trim();
+      if (!rawValue) return;
+      rawValue.split(",").map(item => item.trim()).filter(Boolean).forEach(item => currentObjectives.push(item));
+      row.dataset.objectives = JSON.stringify(currentObjectives);
+      chipList.innerHTML = createObjectiveChipsMarkup(currentObjectives);
+      input.value = "";
+      recalculateObjectiveMappings();
+    }
+
+    function removeObjectiveChip(button, index) {
+      const row = button.closest("tr");
+      const chipList = row.querySelector(".objective-chip-list");
+      const currentObjectives = JSON.parse(row.dataset.objectives || "[]");
+      currentObjectives.splice(index, 1);
+      row.dataset.objectives = JSON.stringify(currentObjectives);
+      chipList.innerHTML = createObjectiveChipsMarkup(currentObjectives);
+      recalculateObjectiveMappings();
+    }
+
+    function deleteObjectiveRow(button) {
+      button.closest("tr").remove();
+      const tbody = document.getElementById("objectiveMappingBody");
+      if (!tbody.children.length) tbody.innerHTML = `<tr class="objective-empty-row"><td colspan="7"><div class="empty-state">No learning objectives added yet. Start by connecting an offering, grades, competencies, and objective statements.</div></td></tr>`;
+      recalculateObjectiveMappings();
+    }
+
+    function collectObjectiveMappings() {
+      const rows = document.querySelectorAll("#objectiveMappingBody tr");
+      const data = [];
+      rows.forEach(row => {
+        if (row.classList.contains("objective-empty-row")) return;
+        const offering = row.querySelector(".objective-offering-select")?.value || "";
+        const grades = Array.from(row.querySelector(".objective-grade-select")?.selectedOptions || []).map(opt => opt.value);
+        const competencies = collectCompetencyMappings().filter(item => item.offering === offering).map(item => item.customCompetency || item.suggestedCompetency).filter(Boolean);
+        const objectives = JSON.parse(row.dataset.objectives || "[]");
+        const teacherIntent = row.querySelector(".objective-note-box")?.value.trim() || "";
+        data.push({ offering, grades, competencies, objectives, teacherIntent });
+      });
+      return data;
+    }
+
+    function recalculateObjectiveMappings() {
+      const data = collectObjectiveMappings();
+      objectiveMappings.length = 0;
+      data.forEach(item => objectiveMappings.push(item));
+      const totalObjectives = data.reduce((sum, item) => sum + item.objectives.length, 0);
+      const uniqueOfferings = [...new Set(data.map(item => item.offering).filter(Boolean))];
+      document.getElementById("objectiveRowCount").textContent = String(data.length);
+      document.getElementById("totalObjectivesCount").textContent = String(totalObjectives);
+      document.getElementById("objectiveOfferingCount").textContent = String(uniqueOfferings.length);
+      let readiness = "Basic";
+      if (totalObjectives >= 6) readiness = "Developing";
+      if (totalObjectives >= 12) readiness = "Strong";
+      if (totalObjectives >= 20) readiness = "Advanced";
+      document.getElementById("objectiveReadinessLabel").textContent = readiness;
+      const preview = document.getElementById("objectivePreviewContainer");
+      preview.innerHTML = "";
+      const flattenedObjectives = data.flatMap(item => item.objectives).filter(Boolean);
+      if (flattenedObjectives.length === 0) {
+        preview.innerHTML = `<span class="tag yellow">No objectives added yet</span>`;
+      } else {
+        flattenedObjectives.slice(0, 16).forEach(item => { const span = document.createElement("span"); span.className = "tag"; span.textContent = item; preview.appendChild(span); });
+        if (flattenedObjectives.length > 16) { const extra = document.createElement("span"); extra.className = "tag green"; extra.textContent = `+${flattenedObjectives.length - 16} more`; preview.appendChild(extra); }
+      }
+    }
+
+    function buildObjectivesFromCompetencies() {
+      const competencyData = collectCompetencyMappings();
+      if (competencyData.length === 0) { alert("Please complete Module 7 first by mapping competencies."); return; }
+      resetObjectiveMappings(true);
+      const grouped = {};
+      competencyData.forEach(item => { if (!item.offering) return; if (!grouped[item.offering]) grouped[item.offering] = { offering: item.offering, grades: item.grades || [] }; });
+      Object.values(grouped).forEach(item => addObjectiveRow({ offering: item.offering, grades: item.grades, objectives: [], teacherIntent: "" }));
+      recalculateObjectiveMappings();
+    }
+
+    function saveObjectiveMappings() {
+      const data = collectObjectiveMappings();
+      if (competencyMappings.length === 0) { alert("Please complete Module 7 first by mapping competencies."); return; }
+      if (data.length === 0) { alert("Please add at least one objective row."); return; }
+      const invalid = data.find(item => !item.offering || item.grades.length === 0 || item.objectives.length === 0);
+      if (invalid) { alert("Each objective row must include an offering, at least one grade, and at least one learning objective."); return; }
+      document.getElementById("module8StatusText").textContent = "Saved";
+      refreshLeadershipView();
+      alert("Learning objectives saved successfully.");
+    }
+
+    function resetObjectiveMappings(skipAlert = false) {
+      document.getElementById("objectiveMappingBody").innerHTML = `<tr class="objective-empty-row"><td colspan="7"><div class="empty-state">No learning objectives added yet. Start by connecting an offering, grades, competencies, and objective statements.</div></td></tr>`;
+      objectiveMappings.length = 0;
+      document.getElementById("module8StatusText").textContent = "Not Started";
+      recalculateObjectiveMappings();
+      refreshLeadershipView();
+    }
+
+    /* ---- Module 9: Assessment ---- */
+    const assessmentRows = [];
+
+    function getAssessmentDomainOptions(selected = "") {
+      return `<option value="">Select Domain</option><option ${selected === "Assessment As" ? "selected" : ""}>Assessment As</option><option ${selected === "Assessment For" ? "selected" : ""}>Assessment For</option><option ${selected === "Assessment Of" ? "selected" : ""}>Assessment Of</option>`;
+    }
+
+    function getAssessmentTypeOptions(domain) {
+      if (domain === "Assessment As") return `<option>Self Assessment</option><option>Peer Assessment</option><option>Portfolio Assessment</option><option>Reflection Journals</option><option>Activities Based Assessment</option>`;
+      if (domain === "Assessment For") return `<option>Diagnostic Assessment</option><option>Formative Assessment</option><option>Quizzes</option><option>Debates</option><option>Classroom Interaction</option><option>Continuous Assessment</option><option>Project Based Assessment</option>`;
+      if (domain === "Assessment Of") return `<option>Summative Assessment</option><option>Unit Test</option><option>Term Exam</option><option>Annual Exam</option><option>Standardized Test</option><option>Project Based</option>`;
+      return `<option>Select Domain First</option>`;
+    }
+
+    function addAssessmentRow() {
+      const tbody = document.getElementById("assessmentTableBody");
+      const empty = tbody.querySelector(".assessment-empty-row");
+      if (empty) empty.remove();
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${tbody.children.length + 1}</td>
+        <td><select class="assessment-offering">${getCompetencyOfferingOptionsHtml()}</select></td>
+        <td><select multiple class="assessment-grades compact-multi-select">${getGradeOptionsHtml()}</select></td>
+        <td><select class="assessment-domain">${getAssessmentDomainOptions()}</select></td>
+        <td><select class="assessment-type"><option>Select Domain First</option></select></td>
+        <td><select class="assessment-frequency"><option>Weekly</option><option>Monthly</option><option>Quarterly</option><option>Term Based</option><option>Annual</option></select></td>
+        <td><select><option>Teacher</option><option>Peer</option><option>Self</option><option>External</option></select></td>
+        <td><button class="btn-danger" onclick="deleteAssessmentRow(this)">Delete</button></td>`;
+      tbody.appendChild(tr);
+      tr.querySelector(".assessment-domain").addEventListener("change", function () {
+        tr.querySelector(".assessment-type").innerHTML = getAssessmentTypeOptions(this.value);
+      });
+      recalculateAssessmentMetrics();
+    }
+
+    function deleteAssessmentRow(btn) { btn.closest("tr").remove(); recalculateAssessmentMetrics(); }
+
+    function recalculateAssessmentMetrics() {
+      const rows = document.querySelectorAll("#assessmentTableBody tr");
+      let count = 0, types = [], offerings = [];
+      rows.forEach(r => {
+        if (r.classList.contains("assessment-empty-row")) return;
+        count++;
+        types.push(r.querySelector(".assessment-type")?.value);
+        offerings.push(r.querySelector(".assessment-offering")?.value);
+      });
+      document.getElementById("assessmentRowCount").textContent = count;
+      document.getElementById("assessmentTypeCount").textContent = [...new Set(types)].length;
+      document.getElementById("assessmentOfferingCount").textContent = [...new Set(offerings)].length;
+      let strength = "Basic";
+      if (count > 5) strength = "Developing";
+      if (count > 10) strength = "Strong";
+      document.getElementById("assessmentStrengthLabel").textContent = strength;
+    }
+
+    function saveAssessmentStructure() { document.getElementById("module9StatusText").textContent = "Saved"; refreshLeadershipView(); alert("Assessment framework saved."); }
+
+    function resetAssessmentStructure() {
+      document.getElementById("assessmentTableBody").innerHTML = `<tr class="assessment-empty-row"><td colspan="8"><div class="empty-state">No assessment structures added yet.</div></td></tr>`;
+      recalculateAssessmentMetrics();
+    }
+
+    /* ---- Module 10: AI Readiness ---- */
+    function buildAIStructure() {
+      const planningData = collectPlanningAssignments();
+      if (planningData.length === 0) { alert("Please complete planning assignments in Module 6 first."); return; }
+      const tbody = document.getElementById("aiStructureBody");
+      tbody.innerHTML = "";
+      const allGrades = new Set();
+      planningData.forEach(item => {
+        const competencies = competencyMappings.filter(c => c.offering === item.offering).map(c => c.customCompetency || c.suggestedCompetency).filter(Boolean);
+        const objectives = objectiveMappings.filter(o => o.offering === item.offering).flatMap(o => o.objectives).filter(Boolean);
+        const assessments = Array.from(document.querySelectorAll("#assessmentTableBody tr")).filter(r => !r.classList.contains("assessment-empty-row") && r.querySelector(".assessment-offering")?.value === item.offering);
+        item.grades.forEach(g => allGrades.add(g));
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>${item.offering || "-"}</strong></td>
+          <td>${item.grades.map(g => `<span class="table-chip">${g}</span>`).join("") || "-"}</td>
+          <td>${competencies.length ? competencies.map(c => `<span class="table-chip">${c}</span>`).join("") : `<span class="tag yellow">Not mapped</span>`}</td>
+          <td>${objectives.length ? `<span class="table-chip">${objectives.length} objectives</span>` : `<span class="tag yellow">Not defined</span>`}</td>
+          <td>${assessments.length ? `<span class="table-chip">${assessments.length} structure(s)</span>` : `<span class="tag yellow">Not linked</span>`}</td>
+          <td><span class="tag ${item.primaryOwner ? "green" : "yellow"}">${item.primaryOwner ? "Ready" : "Pending"}</span></td>
+          <td><span class="tag ${competencies.length && objectives.length ? "green" : "orange"}">${competencies.length && objectives.length ? "Connected" : "Partial"}</span></td>`;
+        tbody.appendChild(tr);
+      });
+      document.getElementById("aiOfferingCount").textContent = planningData.length;
+      document.getElementById("aiGradeCount").textContent = allGrades.size;
+      document.getElementById("aiAssessmentSignalCount").textContent = document.querySelectorAll("#assessmentTableBody tr:not(.assessment-empty-row)").length;
+      let readiness = "Low";
+      if (planningData.length >= 3) readiness = "Moderate";
+      if (competencyMappings.length >= 3 && objectiveMappings.length >= 2) readiness = "High";
+      document.getElementById("aiReadinessLabel").textContent = readiness;
+      const preview = document.getElementById("aiPreviewContainer");
+      preview.innerHTML = "";
+      planningData.forEach(item => { const span = document.createElement("span"); span.className = "tag"; span.textContent = item.offering; preview.appendChild(span); });
+    }
+
+    function saveAIStructure() { document.getElementById("module10StatusText").textContent = "Saved"; refreshLeadershipView(); alert("AI readiness structure saved."); }
+
+    function resetAIStructure() {
+      document.getElementById("aiStructureBody").innerHTML = `<tr class="ai-empty-row"><td colspan="7"><div class="empty-state">No AI readiness structure generated yet. Build structure from previous modules.</div></td></tr>`;
+      document.getElementById("aiOfferingCount").textContent = "0";
+      document.getElementById("aiGradeCount").textContent = "0";
+      document.getElementById("aiAssessmentSignalCount").textContent = "0";
+      document.getElementById("aiReadinessLabel").textContent = "Low";
+      document.getElementById("aiPreviewContainer").innerHTML = `<span class="tag yellow">AI structure not generated yet</span>`;
+      document.getElementById("module10StatusText").textContent = "Not Started";
+    }
+
+    /* ---- Module 11: Leadership View ---- */
+    function refreshLeadershipView() {
+      const moduleStatusIds = [
+        { id: "module1StatusText", label: "School Master Details" },
+        { id: "module3StatusText", label: "Grades Offered" },
+        { id: "module4StatusText", label: "Domains and Subjects" },
+        { id: "module5StatusText", label: "Programs and Clubs" },
+        { id: "module6StatusText", label: "Planning Assignments" },
+        { id: "module7StatusText", label: "Competencies" },
+        { id: "module8StatusText", label: "Learning Objectives" },
+        { id: "module9StatusText", label: "Assessment Structure" },
+        { id: "module10StatusText", label: "AI Readiness" }
+      ];
+
+      let completedCount = 0;
+      const tbody = document.getElementById("leaderModuleStatusTable");
+      tbody.innerHTML = "";
+
+      moduleStatusIds.forEach(mod => {
+        const statusEl = document.getElementById(mod.id);
+        const statusText = statusEl ? statusEl.textContent.trim() : "Pending";
+        const isSaved = statusText === "Saved" || statusText === "Active";
+        if (isSaved) completedCount++;
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>${mod.label}</strong></td>
+          <td><span class="tag ${isSaved ? "green" : "yellow"}">${statusText}</span></td>
+          <td>${isSaved ? "Module completed and saved." : "Module not yet saved. Complete and save to progress."}</td>`;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById("leaderModulesCompleted").textContent = `${completedCount} / 9`;
+      document.getElementById("leaderGradesActive").textContent = String(selectedGrades.length);
+
+      const allOfferings = [...new Set([...collectSubjectMappings().map(i => i.subjectName), ...collectPrograms().map(i => i.name)].filter(Boolean))];
+      document.getElementById("leaderOfferingsTotal").textContent = String(allOfferings.length);
+
+      let stage = "Draft";
+      if (completedCount >= 3) stage = "In Progress";
+      if (completedCount >= 6) stage = "Advanced";
+      if (completedCount >= 9) stage = "Complete";
+      document.getElementById("leaderPlanningStage").textContent = stage;
+      document.getElementById("heroReadinessStatus").textContent = stage;
+
+      // School Identity
+      const schoolIdentityPreview = document.getElementById("leaderSchoolIdentityPreview");
+      schoolIdentityPreview.innerHTML = "";
+      const schoolName = document.getElementById("schoolName")?.value.trim();
+      const board = document.getElementById("schoolBoard")?.value;
+      const year = document.getElementById("academicYear")?.value.trim();
+      if (schoolName) {
+        [schoolName, board, year].filter(Boolean).forEach(text => { const span = document.createElement("span"); span.className = "tag"; span.textContent = text; schoolIdentityPreview.appendChild(span); });
+      } else {
+        schoolIdentityPreview.innerHTML = `<span class="tag yellow">School master not yet saved</span>`;
+      }
+
+      // Active Grades
+      const leaderGradePreview = document.getElementById("leaderGradePreview");
+      leaderGradePreview.innerHTML = "";
+      if (selectedGrades.length === 0) {
+        leaderGradePreview.innerHTML = `<span class="tag yellow">No grades selected yet</span>`;
+      } else {
+        selectedGrades.forEach(g => { const span = document.createElement("span"); span.className = "tag"; span.textContent = g; leaderGradePreview.appendChild(span); });
+      }
+
+      // Offerings
+      const leaderOfferingsPreview = document.getElementById("leaderOfferingsPreview");
+      leaderOfferingsPreview.innerHTML = "";
+      if (allOfferings.length === 0) {
+        leaderOfferingsPreview.innerHTML = `<span class="tag yellow">No subjects or programs mapped yet</span>`;
+      } else {
+        allOfferings.slice(0, 10).forEach(o => { const span = document.createElement("span"); span.className = "tag"; span.textContent = o; leaderOfferingsPreview.appendChild(span); });
+        if (allOfferings.length > 10) { const extra = document.createElement("span"); extra.className = "tag green"; extra.textContent = `+${allOfferings.length - 10} more`; leaderOfferingsPreview.appendChild(extra); }
+      }
+
+      // Delegation
+      const leaderDelegationPreview = document.getElementById("leaderDelegationPreview");
+      leaderDelegationPreview.innerHTML = "";
+      const assignments = collectPlanningAssignments();
+      if (assignments.length === 0) {
+        leaderDelegationPreview.innerHTML = `<span class="tag yellow">No planning assignments yet</span>`;
+      } else {
+        assignments.slice(0, 8).forEach(item => { const span = document.createElement("span"); span.className = "tag"; span.textContent = `${item.offering} → ${item.primaryOwner || "Pending"}`; leaderDelegationPreview.appendChild(span); });
+      }
+
+      // Competencies
+      const leaderCompetencyPreview = document.getElementById("leaderCompetencyPreview");
+      leaderCompetencyPreview.innerHTML = "";
+      const uniqueCompetencies = [...new Set(competencyMappings.map(item => item.customCompetency || item.suggestedCompetency).filter(Boolean))];
+      if (uniqueCompetencies.length === 0) {
+        leaderCompetencyPreview.innerHTML = `<span class="tag yellow">No competencies mapped yet</span>`;
+      } else {
+        uniqueCompetencies.slice(0, 6).forEach(c => { const span = document.createElement("span"); span.className = "tag"; span.textContent = c; leaderCompetencyPreview.appendChild(span); });
+        if (uniqueCompetencies.length > 6) { const extra = document.createElement("span"); extra.className = "tag green"; extra.textContent = `+${uniqueCompetencies.length - 6} more`; leaderCompetencyPreview.appendChild(extra); }
+      }
+    }
+
+    /* ---- Module 12: Integration ---- */
+    function validateIntegration() {
+      const m1 = document.getElementById("module1StatusText")?.textContent === "Saved";
+      const m3 = document.getElementById("module3StatusText")?.textContent === "Saved";
+      const m4 = document.getElementById("module4StatusText")?.textContent === "Saved";
+      const m5 = document.getElementById("module5StatusText")?.textContent === "Saved";
+      const m6 = document.getElementById("module6StatusText")?.textContent === "Saved";
+      const m7 = document.getElementById("module7StatusText")?.textContent === "Saved";
+      const m8 = document.getElementById("module8StatusText")?.textContent === "Saved";
+      const m9 = document.getElementById("module9StatusText")?.textContent === "Saved";
+
+      document.getElementById("integrationFoundationStatus").textContent = (m1 && m3) ? "Complete" : "Pending";
+      document.getElementById("integrationFoundationStatus").className = `tag ${(m1 && m3) ? "green" : "yellow"}`;
+
+      document.getElementById("integrationCurriculumStatus").textContent = (m4 && m5) ? "Complete" : "Pending";
+      document.getElementById("integrationCurriculumStatus").className = `tag ${(m4 && m5) ? "green" : "yellow"}`;
+
+      document.getElementById("integrationDepthStatus").textContent = (m6 && m7 && m8 && m9) ? "Complete" : "Pending";
+      document.getElementById("integrationDepthStatus").className = `tag ${(m6 && m7 && m8 && m9) ? "green" : "yellow"}`;
+
+      const validationContainer = document.getElementById("integrationValidationContainer");
+      validationContainer.innerHTML = "";
+      const checks = [
+        { label: "School Master", ok: m1 }, { label: "Grades", ok: m3 }, { label: "Subjects", ok: m4 },
+        { label: "Programs", ok: m5 }, { label: "Assignments", ok: m6 }, { label: "Competencies", ok: m7 },
+        { label: "Objectives", ok: m8 }, { label: "Assessments", ok: m9 }
+      ];
+      checks.forEach(check => {
+        const span = document.createElement("span");
+        span.className = `tag ${check.ok ? "green" : "red"}`;
+        span.textContent = `${check.label}: ${check.ok ? "✓ Done" : "✗ Pending"}`;
+        validationContainer.appendChild(span);
+      });
+    }
+
+    function markPlanningComplete() {
+      const allSaved = ["module1StatusText","module3StatusText","module4StatusText","module5StatusText","module6StatusText","module7StatusText","module8StatusText","module9StatusText"]
+        .every(id => document.getElementById(id)?.textContent === "Saved");
+      if (!allSaved) { alert("Please complete and save all modules before marking planning as complete."); return; }
+      document.getElementById("module12StatusText").textContent = "Complete";
+      document.getElementById("heroReadinessStatus").textContent = "Complete";
+      alert("Congratulations! School planning marked as complete.");
+    }
+
+    /* ---- Initialize ---- */
+    refreshLeadershipView();
+    loadFromCloud();
+
+    // ============================================
+    // MONGODB CLOUD SYNC LOGIC
+    // ============================================
+    async function syncToCloud() {
+      const btn = document.getElementById("cloudSyncBtn");
+      const status = document.getElementById("cloudSyncStatus");
+      
+      if(btn) btn.textContent = "Saving to Database...";
+      if(status) status.innerHTML = `<span class="chip-dot" style="background:var(--warning)"></span> Syncing...`;
+
+      const payload = {
+        htmlState: {
+          m1: {
+            name: document.getElementById('schoolName')?.value || '',
+            board: document.getElementById('schoolBoard')?.value || '',
+            year: document.getElementById('academicYear')?.value || '',
+            strength: document.getElementById('schoolStrength')?.value || ''
+          },
+          m3SelectedGrades: selectedGrades || [],
+          m4HTML: document.getElementById('subjectMappingBody')?.innerHTML || '',
+          m5HTML: document.getElementById('programsBody')?.innerHTML || '',
+          m6HTML: document.getElementById('planningTableBody')?.innerHTML || '',
+          m7HTML: document.getElementById('competencyMappingBody')?.innerHTML || '',
+          m8HTML: document.getElementById('objectiveMappingBody')?.innerHTML || '',
+          m9HTML: document.getElementById('assessmentTableBody')?.innerHTML || '',
+          m10HTML: document.getElementById('aiStructureBody')?.innerHTML || ''
+        }
+      };
+
+      try {
+        const res = await fetch('/api/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        if (!res.ok) throw new Error("Network error");
+        
+        if(btn) btn.textContent = "Save Everything to Database";
+        if(status) status.innerHTML = `<span class="chip-dot" style="background:var(--success)"></span> Saved to MongoDB`;
+        document.getElementById("module12StatusText").textContent = "Integration Verified";
+        alert("All modules saved successfully to MongoDB Cloud!");
+      } catch (err) {
+        console.error(err);
+        if(btn) btn.textContent = "Save Failed - Retry";
+        if(status) status.innerHTML = `<span class="chip-dot" style="background:var(--danger)"></span> Offline / Failed`;
+        alert("Failed to save to database. Note: Cloud save requires Vercel hosting. Running locally requires Node.js");
+      }
+    }
+
+    async function loadFromCloud() {
+      const status = document.getElementById("cloudSyncStatus");
+      try {
+        const res = await fetch('/api/load');
+        if (!res.ok) return;
+        const json = await res.json();
+        
+        if (json.found && json.data && json.data.htmlState) {
+          const s = json.data.htmlState;
+          
+          if(s.m1) {
+            if(document.getElementById('schoolName')) document.getElementById('schoolName').value = s.m1.name || '';
+            if(document.getElementById('schoolBoard')) document.getElementById('schoolBoard').value = s.m1.board || 'CBSE';
+            if(document.getElementById('academicYear')) document.getElementById('academicYear').value = s.m1.year || '';
+            if(document.getElementById('schoolStrength')) document.getElementById('schoolStrength').value = s.m1.strength || '';
+            if(document.getElementById('module1StatusText')) document.getElementById('module1StatusText').textContent = "Saved";
+             // Trigger inputs
+            if(document.getElementById('schoolName')) document.getElementById('schoolName').dispatchEvent(new Event('input'));
+          }
+          
+          if(s.m3SelectedGrades) {
+            selectedGrades = s.m3SelectedGrades;
+            selectedGrades.forEach(g => {
+              const card = Array.from(document.querySelectorAll('.grade-card')).find(c => c.dataset.grade === g);
+              if (card) card.classList.add('selected');
+            });
+            if(typeof updateGradeSelectionPreview === 'function') updateGradeSelectionPreview();
+            if(document.getElementById('module3StatusText')) document.getElementById('module3StatusText').textContent = "Saved";
+          }
+          
+          // Inject raw HTML for complex tables.
+          if (s.m4HTML && !s.m4HTML.includes('empty-state')) { document.getElementById('subjectMappingBody').innerHTML = s.m4HTML; document.getElementById('module4StatusText').textContent = "Saved"; }
+          if (s.m5HTML && !s.m5HTML.includes('empty-state')) { document.getElementById('programsBody').innerHTML = s.m5HTML; document.getElementById('module5StatusText').textContent = "Saved"; }
+          if (s.m6HTML && !s.m6HTML.includes('empty-state')) { document.getElementById('planningTableBody').innerHTML = s.m6HTML; document.getElementById('module6StatusText').textContent = "Saved"; }
+          if (s.m7HTML && !s.m7HTML.includes('empty-state')) { document.getElementById('competencyMappingBody').innerHTML = s.m7HTML; document.getElementById('module7StatusText').textContent = "Saved"; }
+          if (s.m8HTML && !s.m8HTML.includes('empty-state')) { document.getElementById('objectiveMappingBody').innerHTML = s.m8HTML; document.getElementById('module8StatusText').textContent = "Saved"; }
+          if (s.m9HTML && !s.m9HTML.includes('empty-state')) { document.getElementById('assessmentTableBody').innerHTML = s.m9HTML; document.getElementById('module9StatusText').textContent = "Saved"; }
+          if (s.m10HTML && !s.m10HTML.includes('empty-state')) { document.getElementById('aiStructureBody').innerHTML = s.m10HTML; document.getElementById('module10StatusText').textContent = "Saved"; }
+          
+          if(typeof recalculateAssessmentMetrics === 'function') recalculateAssessmentMetrics();
+          refreshLeadershipView();
+          if(status) status.innerHTML = `<span class="chip-dot" style="background:var(--success)"></span> Loaded from MongoDB`;
+        }
+      } catch (err) {
+        console.warn("MongoDB load unavailable locally", err);
+        if(status) status.innerHTML = `<span class="chip-dot" style="background:var(--warning)"></span> Offline mode`;
+      }
+    }
+  </script>
+</body>
+</html>
