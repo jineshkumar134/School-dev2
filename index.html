@@ -714,11 +714,67 @@
       color: #9f7900;
     }
 
-    .tag.red {
-      background: var(--soft-red);
-      border-color: #f0cccc;
-      color: #b63a3a;
+    .tag.red { background: var(--soft-red); color: var(--danger); border-color: #feb8b8; }
+
+    /* Module 6 Teacher Planning Workflow Styles */
+    #module6 .module6-term-board {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 16px;
     }
+    .module6-term-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+    .term-title {
+      font-weight: 600;
+      color: var(--secondary);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .unit-container {
+      margin-bottom: 12px;
+      padding: 12px;
+      background: var(--bg);
+      border-radius: 12px;
+      border: 1px solid #e0e6ed;
+    }
+    .unit-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .unit-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .chapter-item {
+      margin-top: 8px;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.85em;
+    }
+    .module6-inner-panel {
+      background: var(--soft-blue);
+      border-color: #d0e2f5;
+    }
+    @media (max-width: 900px) {
+      #module6 .module6-term-board {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 
     .tag.purple {
       background: var(--soft-purple);
@@ -933,16 +989,16 @@
             <a href="#module5" class="nav-item">
               <div class="nav-no">5</div>
               <div class="nav-text">
-                <strong>Curriculum Development for Programs</strong>
-                <span>Clubs, sports, arts, culture, leadership, wellbeing, vocational tracks</span>
+                <strong>Academic Ownership Mapping</strong>
+                <span>Map subjects and grades to responsible owners</span>
               </div>
             </a>
 
             <a href="#module6" class="nav-item">
               <div class="nav-no">6</div>
               <div class="nav-text">
-                <strong>Planning Assignment and Ownership</strong>
-                <span>Delegate work to HODs, teachers, mentors, coaches, and trainers</span>
+                <strong>Teacher Academic Planning Workflow</strong>
+                <span>Term-wise academic planning and HOD review cycle</span>
               </div>
             </a>
 
@@ -1592,170 +1648,43 @@
             <div class="module-header">
               <div class="module-title-wrap">
                 <div class="module-step">Module 5</div>
-                <h3 class="module-title">Curriculum Development for Beyond Academics &amp; Vocational Skills</h3>
+                <h3 class="module-title">Academic Structure &amp; Ownership Mapping</h3>
                 <p class="module-desc">
-                  Schools today develop students beyond classroom academics. This module allows leadership to define structured programs such as Clubs, Sports, Arts, Culture, Leadership, Wellbeing, and Vocational Skill Tracks.
-                  These programs will later connect with competencies, assessments, and AI-based progress insights.
+                  This module defines the final delegation layer. Leaders map each grade-section-subject combination
+                  to its responsible owner (Teacher/HOD). This ownership mapping activates the teacher planning workflow in Module 6.
                 </p>
               </div>
 
               <div class="module-status">
                 <div class="status-label">Current Status</div>
                 <div class="status-value" id="module5StatusText">Not Started</div>
-                <div class="status-meta">Programs and clubs defined here will appear in planning modules later.</div>
+                <div class="status-meta">Mapping must be saved before teachers can initiate academic planning.</div>
               </div>
             </div>
 
             <div class="info-banner">
-              Instead of keeping clubs, sports, and vocational learning informal, this portal allows schools to structure them properly with planning, ownership, competencies, and evaluation.
-            </div>
-
-            <div class="section-divider"></div>
-
-            <div class="grid-3">
-              <div class="metric-card">
-                <div class="label">Total Programs</div>
-                <div class="value" id="programCount">0</div>
-                <div class="meta">Clubs / Sports / Vocational Tracks</div>
-              </div>
-              <div class="metric-card">
-                <div class="label">Active Categories</div>
-                <div class="value" id="programCategoryCount">0</div>
-                <div class="meta">How many categories are currently mapped</div>
-              </div>
-              <div class="metric-card">
-                <div class="label">Grade Coverage</div>
-                <div class="value" id="programGradeCoverage">0</div>
-                <div class="meta">Programs mapped to school grades</div>
-              </div>
-            </div>
-
-            <div class="section-divider"></div>
-
-            <div class="soft-panel">
-              <h4 class="panel-title">Program Category Tags</h4>
-              <div class="tag-row">
-                <span class="tag green">Clubs</span>
-                <span class="tag green">Sports</span>
-                <span class="tag green">Arts</span>
-                <span class="tag green">Culture</span>
-                <span class="tag purple">Vocational Skills</span>
-                <span class="tag purple">Leadership</span>
-                <span class="tag purple">Wellbeing</span>
-              </div>
-            </div>
-
-            <div class="section-divider"></div>
-
-            <div class="table-wrap">
-              <table class="inline-table">
-                <thead>
-                  <tr>
-                    <th style="width:6%">#</th>
-                    <th style="width:18%">Program / Club Name</th>
-                    <th style="width:18%">Applicable Grades</th>
-                    <th style="width:18%">Category</th>
-                    <th style="width:16%">Program Type</th>
-                    <th style="width:24%">Description</th>
-                  </tr>
-                </thead>
-                <tbody id="programBody">
-                  <tr class="program-empty">
-                    <td colspan="6">
-                      <div class="empty-state">
-                        No programs defined yet. Add the first club, sports program, or vocational track.
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="btn-row">
-              <button class="btn-primary" onclick="addProgramRow()">Add Program</button>
-              <button class="btn-light" onclick="addSuggestedPrograms()">Add Suggested Programs</button>
-              <button class="btn-secondary" onclick="savePrograms()">Save Programs</button>
-              <button class="btn-light" onclick="resetPrograms()">Reset Module</button>
-            </div>
-
-            <div class="section-divider"></div>
-
-            <div class="grid-2">
-              <div class="soft-panel">
-                <h4 class="panel-title">Program Categories Used</h4>
-                <div class="tag-row" id="programCategoryPreview">
-                  <span class="tag yellow">No categories used yet</span>
-                </div>
-              </div>
-              <div class="soft-panel">
-                <h4 class="panel-title">Program Preview</h4>
-                <div class="tag-row" id="programPreview">
-                  <span class="tag yellow">No programs created yet</span>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- ==================== MODULE 6 ==================== -->
-          <section class="module-card" id="module6">
-            <div class="module-header">
-              <div class="module-title-wrap">
-                <div class="module-step">Module 6</div>
-                <h3 class="module-title">Planning Assignment and Ownership</h3>
-                <p class="module-desc">
-                  This module is designed for delegation. Leaders define ownership here by assigning HODs, subject teachers,
-                  club mentors, sports coaches, wellbeing coordinators, and vocational trainers to the right subject or program-grade combinations.
-                </p>
-              </div>
-
-              <div class="module-status">
-                <div class="status-label">Current Status</div>
-                <div class="status-value" id="module6StatusText">Not Started</div>
-                <div class="status-meta">Assign ownership first, then detailed academic and activity planning can happen cleanly.</div>
-              </div>
-            </div>
-
-            <div class="info-banner">
-              This is a leadership delegation layer. A principal should not manually do detailed planning for each subject,
-              club, sport, or vocational track. Instead, this module maps who owns the planning responsibility for each
-              academic and non-academic offering and which grades they are accountable for.
+              <strong>Leadership Layer:</strong> Use this module to delegate who is responsible for planning each subject for each section.
+              The mappings created here will automatically appear in the Teacher Workspace in Module 6.
             </div>
 
             <div class="section-divider"></div>
 
             <div class="grid-4">
               <div class="metric-card">
-                <div class="label">Planning Assignments</div>
-                <div class="value" id="planningAssignmentCount">0</div>
-                <div class="meta">Total delegated ownership rows</div>
+                <div class="label">Class-Section Mappings</div>
+                <div class="value" id="module5SectionCount">0</div>
               </div>
               <div class="metric-card">
-                <div class="label">Mapped Owners</div>
-                <div class="value" id="mappedOwnerCount">0</div>
-                <div class="meta">Distinct academic and program owners</div>
+                <div class="label">Ownership Entries</div>
+                <div class="value" id="module5OwnershipCount">0</div>
               </div>
               <div class="metric-card">
-                <div class="label">Subjects / Programs Covered</div>
-                <div class="value" id="delegatedOfferingCount">0</div>
-                <div class="meta">Offerings now under planning ownership</div>
+                <div class="label">Mapped Teachers</div>
+                <div class="value" id="module5TeacherCount">0</div>
               </div>
               <div class="metric-card">
-                <div class="label">Delegation Strength</div>
-                <div class="value" id="delegationStrengthLabel">Basic</div>
-                <div class="meta">Improves as ownership gets mapped</div>
-              </div>
-            </div>
-
-            <div class="section-divider"></div>
-
-            <div class="soft-panel">
-              <h4 class="panel-title">Delegation Logic</h4>
-              <div class="tag-row">
-                <span class="tag">Subject → Grades → Owner</span>
-                <span class="tag">Program → Grades → Owner</span>
-                <span class="tag green">HOD / Teacher / Mentor Ownership</span>
-                <span class="tag orange">Leader Visibility</span>
-                <span class="tag">Planning Accountability</span>
+                <div class="label">Mapping Integrity</div>
+                <div class="value" id="module5IntegrityLabel">Pending</div>
               </div>
             </div>
 
@@ -1766,22 +1695,20 @@
                 <thead>
                   <tr>
                     <th style="width:5%;">#</th>
-                    <th style="width:14%;">Subject / Program</th>
-                    <th style="width:12%;">Grades</th>
+                    <th style="width:10%;">Grade</th>
+                    <th style="width:10%;">Section</th>
+                    <th style="width:15%;">Subject</th>
                     <th style="width:12%;">Domain</th>
-                    <th style="width:14%;">Owner Role</th>
-                    <th style="width:14%;">Primary Owner Name</th>
-                    <th style="width:12%;">Support Owner</th>
-                    <th style="width:9%;">Planning Scope</th>
-                    <th style="width:8%;">Status</th>
+                    <th style="width:14%;">Owner Type</th>
+                    <th style="width:16%;">Primary Owner Name</th>
+                    <th style="width:14%;">Support Owner</th>
+                    <th style="width:4%;"></th>
                   </tr>
                 </thead>
-                <tbody id="planningAssignmentBody">
-                  <tr class="planning-empty-row">
+                <tbody id="module5MappingBody">
+                  <tr class="module5-empty-row">
                     <td colspan="9">
-                      <div class="empty-state">
-                        No planning assignments created yet. Start by mapping a subject or program to its responsible owner.
-                      </div>
+                      <div class="empty-state">No ownership mappings created yet.</div>
                     </td>
                   </tr>
                 </tbody>
@@ -1789,35 +1716,210 @@
             </div>
 
             <div class="btn-row">
-              <button class="btn-primary" type="button" onclick="addPlanningAssignmentRow()">Add Planning Assignment</button>
-              <button class="btn-light" type="button" onclick="buildAssignmentsFromOfferings()">Auto Build from Subjects and Programs</button>
-              <button class="btn-secondary" type="button" onclick="savePlanningAssignments()">Save Planning Assignments</button>
-              <button class="btn-light" type="button" onclick="resetPlanningAssignments()">Reset Module</button>
+              <button class="btn-primary" type="button" onclick="addModule5MappingRow()">Add Mapping Row</button>
+              <button class="btn-light" type="button" onclick="autoBuildModule5Mappings()">Auto-Build from Masters</button>
+              <button class="btn-secondary" type="button" onclick="saveModule5Mappings()">Save Ownership Mapping</button>
+            </div>
+          </section>
+
+
+          <!-- ==================== MODULE 6 ==================== -->
+          <!-- ==================== MODULE 6 ==================== -->
+          <section class="module-card" id="module6">
+            <div class="module-header">
+              <div class="module-title-wrap">
+                <div class="module-step">Module 6</div>
+                <h3 class="module-title">Teacher Academic Planning Workflow</h3>
+                <p class="module-desc">
+                  Teachers fill term-wise academic planning through assigned grade, section, and subject combinations only.
+                  HOD reviews the complete structure, and leaders see a compact progress summary.
+                </p>
+              </div>
+
+              <div class="module-status">
+                <div class="status-label">Current Status</div>
+                <div class="status-value" id="module6StatusText">Not Started</div>
+                <div class="status-meta">Teacher → HOD → Leader flow with locked submission control.</div>
+              </div>
+            </div>
+
+            <div class="info-banner">
+              This module operates on an <strong>Ownership First</strong> logic. Academic planning cannot start until
+              Mapping (Module 5) is completed by the leadership team. Once mapped, teachers carry out the detailed execution.
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="grid-4">
+              <div class="metric-card">
+                <div class="label">Available Planning Bases</div>
+                <div class="value" id="module6AvailableEntriesCount">0</div>
+                <div class="meta">Fetched from Module 5 ownership mapping</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Draft Plans</div>
+                <div class="value" id="module6DraftPlansCount">0</div>
+                <div class="meta">Planning initiated but not submitted</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Submitted Plans</div>
+                <div class="value" id="module6SubmittedPlansCount">0</div>
+                <div class="meta">Waiting for HOD review</div>
+              </div>
+              <div class="metric-card">
+                <div class="label">Approved Plans</div>
+                <div class="value" id="module6ApprovedPlansCount">0</div>
+                <div class="meta">Planning cycle complete for base</div>
+              </div>
             </div>
 
             <div class="section-divider"></div>
 
             <div class="grid-2">
               <div class="soft-panel">
-                <h4 class="panel-title">Ownership Snapshot</h4>
-                <div id="planningOwnershipPreview" class="tag-row">
-                  <span class="tag yellow">No ownership mapping yet</span>
+                <h4 class="panel-title">Planning Base Selector</h4>
+                <div class="grid-2">
+                  <div>
+                    <label class="input-label" for="module6AcademicYearDisplay">Academic Year</label>
+                    <input type="text" id="module6AcademicYearDisplay" readonly placeholder="Auto-fetched from Module 1">
+                    <div class="help-text">Fetched automatically from School Master Details.</div>
+                  </div>
+                  <div>
+                    <label class="input-label" for="module6EntrySelector">Assigned Grade + Section + Subject</label>
+                    <select id="module6EntrySelector">
+                      <option value="">Select assigned planning base</option>
+                    </select>
+                    <div class="help-text">Only assigned ownership combinations appear here from Module 5.</div>
+                  </div>
+                </div>
+                <div class="section-divider"></div>
+                <div id="module6SelectedEntryPreview" class="tag-row">
+                  <span class="tag yellow">No planning base selected yet</span>
                 </div>
               </div>
+
               <div class="soft-panel">
-                <h4 class="panel-title">Leader Benefit</h4>
-                <p class="panel-text">
-                  This structure ensures that school leaders get visibility over who is responsible for which subject,
-                  club, sport, or vocational program instead of doing repetitive detailed planning themselves.
-                </p>
-                <div class="tag-row">
-                  <span class="tag">Delegation</span>
-                  <span class="tag green">Academic Accountability</span>
-                  <span class="tag">Execution Ownership</span>
+                <h4 class="panel-title">Workflow Status</h4>
+                <div class="grid-2">
+                  <div>
+                    <label class="input-label">Teacher Submission Status</label>
+                    <input type="text" id="module6TeacherSubmissionStatus" readonly value="Draft">
+                  </div>
+                  <div>
+                    <label class="input-label">HOD Review Status</label>
+                    <input type="text" id="module6HodApprovalStatus" readonly value="Pending">
+                  </div>
+                </div>
+                <div id="module6WorkflowSummary" class="tag-row">
+                  <span class="tag yellow">Waiting for planning base selection</span>
+                </div>
+                <div class="help-text">
+                  After teacher submits to HOD, editing gets locked until HOD sends it back.
                 </div>
               </div>
             </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Teacher Planning Workspace</h4>
+              <p class="panel-text">
+                Fixed structure with four terms. Each term contains multiple units, and each unit contains multiple chapters.
+              </p>
+              <div id="module6TeacherWorkspace" class="module6-term-board">
+                <div class="empty-state">Select a planning base to start planning.</div>
+              </div>
+              <div class="btn-row">
+                <button type="button" class="btn-light" id="module6ResetBaseBtn">Reset Selected Base</button>
+                <button type="button" class="btn-primary" id="module6SubmitBtn">Submit to HOD</button>
+              </div>
+              <div class="help-text" id="module6AutoSaveStatus">No planning selected yet</div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel" id="module6HodPanel">
+              <h4 class="panel-title">HOD Review Panel</h4>
+              <div class="grid-2">
+                <div>
+                  <label class="input-label" for="module6HodRemarks">HOD Remarks</label>
+                  <textarea id="module6HodRemarks" placeholder="Add HOD remarks here" style="height:100px; width:100%; border-radius:12px; border:1px solid #d9e4f0; padding:12px;"></textarea>
+                </div>
+                <div class="soft-panel module6-inner-panel">
+                  <h4 class="panel-title">HOD Actions</h4>
+                  <div id="module6HodActionSummary" class="tag-row">
+                    <span class="tag yellow">Select a planning base to review</span>
+                  </div>
+                  <div class="btn-row">
+                    <button type="button" class="btn-success" id="module6ApproveBtn">Approve</button>
+                    <button type="button" class="btn-light" id="module6SendBackBtn">Send Back for Revision</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-divider"></div>
+
+              <div class="table-wrap">
+                <table class="inline-table" style="min-width: 1400px;">
+                  <thead>
+                    <tr>
+                      <th style="width:40px;">#</th>
+                      <th style="width:100px;">Grade</th>
+                      <th style="width:100px;">Section</th>
+                      <th style="width:120px;">Subject</th>
+                      <th style="width:80px;">Term</th>
+                      <th style="width:80px;">Unit No.</th>
+                      <th style="width:130px;">Unit Name</th>
+                      <th style="width:80px;">Chap No.</th>
+                      <th style="width:150px;">Chapter Name</th>
+                      <th style="width:180px;">Topics / Sub-topics</th>
+                      <th style="width:150px;">Pedagogy</th>
+                      <th style="width:150px;">Learning Objectives</th>
+                      <th style="width:140px;">Competencies</th>
+                    </tr>
+                  </thead>
+                  <tbody id="module6PlanningBody">
+                    <tr class="module6-empty-row">
+                      <td colspan="13">
+                        <div class="empty-state">HOD full planning view will appear here after entries are added.</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="soft-panel">
+              <h4 class="panel-title">Leader Summary View</h4>
+              <div class="table-wrap">
+                <table class="inline-table">
+                  <thead>
+                    <tr>
+                      <th style="width:10%;">Grade</th>
+                      <th style="width:10%;">Section</th>
+                      <th style="width:14%;">Subject</th>
+                      <th style="width:12%;">Terms Planned</th>
+                      <th style="width:10%;">Units</th>
+                      <th style="width:10%;">Chapters</th>
+                      <th style="width:12%;">Teacher Status</th>
+                      <th style="width:12%;">HOD Status</th>
+                      <th style="width:10%;">Last Updated</th>
+                    </tr>
+                  </thead>
+                  <tbody id="module6SummaryBody">
+                    <tr>
+                      <td colspan="9">
+                        <div class="empty-state">Leader summary will appear here after academic planning starts.</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </section>
+
 
           <!-- ==================== MODULE 7 ==================== -->
           <section class="module-card" id="module7">
@@ -2913,7 +3015,6 @@
         names.forEach(n => { const span = document.createElement("span"); span.className = "tag"; span.textContent = n; preview.appendChild(span); });
       }
     }
-
     function savePrograms() {
       const data = collectPrograms();
       if (data.length === 0) { alert("Please add at least one program."); return; }
@@ -2924,185 +3025,81 @@
       alert("Programs saved successfully.");
     }
 
+    /* ---- Module 5: Academic Ownership Mapping ---- */
+    let module5Mappings = [];
+
+    function addModule5MappingRow(data = {}) {
+      const tbody = document.getElementById("module5MappingBody");
+      const empty = tbody.querySelector(".module5-empty-row");
+      if (empty) empty.remove();
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${tbody.children.length + 1}</td>
+        <td><select class="m5-grade">${getGradeOptionsHtml(data.grade)}</select></td>
+        <td><input type="text" class="m5-section" placeholder="e.g. A" value="${data.section || ''}"></td>
+        <td><select class="m5-subject">${getSubjectOptionsHtml(data.subject)}</select></td>
+        <td><select class="m5-domain"><option value="Academics" ${data.domain === 'Academics' ? 'selected' : ''}>Academics</option><option value="Beyond Academics" ${data.domain === 'Beyond Academics' ? 'selected' : ''}>Beyond Academics</option><option value="Vocational" ${data.domain === 'Vocational' ? 'selected' : ''}>Vocational</option></select></td>
+        <td><select class="m5-owner-type"><option value="Teacher" ${data.ownerType === 'Teacher' ? 'selected' : ''}>Teacher</option><option value="HOD" ${data.ownerType === 'HOD' ? 'selected' : ''}>HOD</option></select></td>
+        <td><input type="text" class="m5-primary-owner" placeholder="Name" value="${data.primaryOwner || ''}"></td>
+        <td><input type="text" class="m5-support-owner" placeholder="Name" value="${data.supportOwner || ''}"></td>
+        <td><button class="btn-danger" type="button" onclick="this.closest('tr').remove(); recalculateModule5Metrics();">×</button></td>`;
+      tbody.appendChild(tr);
+      recalculateModule5Metrics();
+    }
+
+    function autoBuildModule5Mappings() {
+      const subjects = collectSubjectMappings();
+      if (subjects.length === 0) { alert("Please complete Module 4 (Subjects) first."); return; }
+      subjects.forEach(s => {
+        s.grades.forEach(g => {
+          addModule5MappingRow({ grade: g, subject: s.subjectName, domain: s.domain });
+        });
+      });
+    }
+
+    function recalculateModule5Metrics() {
+      const rows = document.querySelectorAll("#module5MappingBody tr:not(.module5-empty-row)");
+      const sections = new Set();
+      const teachers = new Set();
+      rows.forEach(r => {
+        const g = r.querySelector(".m5-grade")?.value;
+        const s = r.querySelector(".m5-section")?.value;
+        if (g && s) sections.add(`${g}-${s}`);
+        const p = r.querySelector(".m5-primary-owner")?.value.trim();
+        if (p) teachers.add(p);
+      });
+      document.getElementById("module5SectionCount").textContent = sections.size;
+      document.getElementById("module5OwnershipCount").textContent = rows.length;
+      document.getElementById("module5TeacherCount").textContent = teachers.size;
+      document.getElementById("module5IntegrityLabel").textContent = rows.length > 0 ? "Mapped" : "Pending";
+    }
+
+    function collectModule5Mappings() {
+      const rows = document.querySelectorAll("#module5MappingBody tr:not(.module5-empty-row)");
+      return Array.from(rows).map(r => ({
+        grade: r.querySelector(".m5-grade").value,
+        section: r.querySelector(".m5-section").value.trim(),
+        subject: r.querySelector(".m5-subject").value,
+        domain: r.querySelector(".m5-domain").value,
+        ownerType: r.querySelector(".m5-owner-type").value,
+        primaryOwner: r.querySelector(".m5-primary-owner").value.trim(),
+        supportOwner: r.querySelector(".m5-support-owner").value.trim()
+      }));
+    }
+
+    function saveModule5Mappings() {
+      module5Mappings = collectModule5Mappings();
+      document.getElementById("module5StatusText").textContent = "Saved";
+      initializeModule6();
+      refreshLeadershipView();
+      alert("Academic Ownership Mapping saved successfully.");
+    }
+
     function resetPrograms() {
       document.getElementById("programBody").innerHTML = `<tr class="program-empty"><td colspan="6"><div class="empty-state">No programs defined yet. Add the first club, sports program, or vocational track.</div></td></tr>`;
       programMappings.length = 0;
       document.getElementById("module5StatusText").textContent = "Not Started";
       recalculatePrograms();
-      refreshLeadershipView();
-    }
-
-    /* ---- Module 6: Planning Assignments ---- */
-    const planningAssignments = [];
-
-    function getAllOfferingsForPlanning() {
-      const subjects = collectSubjectMappings().map(item => ({ name: item.subjectName, grades: item.grades || [], domains: item.domains || [], sourceType: "Subject" }));
-      const programs = collectPrograms().map(item => ({ name: item.name, grades: item.grades || [], domains: item.category ? [item.category] : [], sourceType: item.type || "Program" }));
-      return [...subjects, ...programs].filter(item => item.name);
-    }
-
-    function getPlanningOfferingOptionsHtml(selectedValue = "") {
-      const offerings = getAllOfferingsForPlanning();
-      const uniqueNames = [...new Set(offerings.map(item => item.name))];
-      return `<option value="">Select offering</option>${uniqueNames.map(name => `<option value="${name}" ${selectedValue === name ? "selected" : ""}>${name}</option>`).join("")}`;
-    }
-
-    function getPlanningGradeOptionsHtml(selectedValues = [], offeringName = "") {
-      let grades = selectedGrades.length ? [...selectedGrades] : ["Nursery","LKG","UKG","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
-      if (offeringName) {
-        const offering = getAllOfferingsForPlanning().find(item => item.name === offeringName);
-        if (offering && offering.grades && offering.grades.length) grades = offering.grades;
-      }
-      return `<select class="planning-grade-select compact-multi-select" multiple>${grades.map(grade => `<option value="${grade}" ${selectedValues.includes(grade) ? "selected" : ""}>${grade}</option>`).join("")}</select>`;
-    }
-
-    function getPlanningDomainPreview(offeringName = "") {
-      const offering = getAllOfferingsForPlanning().find(item => item.name === offeringName);
-      const domains = offering ? (offering.domains || []) : [];
-      if (!domains.length) return `<span class="tag yellow">No domain linked</span>`;
-      return domains.map(domain => `<span class="table-chip">${domain}</span>`).join("");
-    }
-
-    function addPlanningAssignmentRow(config = {}) {
-      const tbody = document.getElementById("planningAssignmentBody");
-      const emptyRow = tbody.querySelector(".planning-empty-row");
-      if (emptyRow) emptyRow.remove();
-      const { offering = "", grades = [], ownerRole = "", primaryOwner = "", supportOwner = "", planningScope = "", status = "Not Started" } = config;
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td class="planning-row-number">${tbody.children.length + 1}</td>
-        <td><select class="planning-offering-select">${getPlanningOfferingOptionsHtml(offering)}</select></td>
-        <td class="planning-grade-cell">${getPlanningGradeOptionsHtml(grades, offering)}</td>
-        <td class="planning-domain-cell">${getPlanningDomainPreview(offering)}</td>
-        <td>
-          <select class="planning-role-select">
-            <option value="">Select role</option>
-            <option value="HOD" ${ownerRole === "HOD" ? "selected" : ""}>HOD</option>
-            <option value="Subject Teacher" ${ownerRole === "Subject Teacher" ? "selected" : ""}>Subject Teacher</option>
-            <option value="Club Mentor" ${ownerRole === "Club Mentor" ? "selected" : ""}>Club Mentor</option>
-            <option value="Sports Coach" ${ownerRole === "Sports Coach" ? "selected" : ""}>Sports Coach</option>
-            <option value="Activity In-charge" ${ownerRole === "Activity In-charge" ? "selected" : ""}>Activity In-charge</option>
-            <option value="Wellbeing Coordinator" ${ownerRole === "Wellbeing Coordinator" ? "selected" : ""}>Wellbeing Coordinator</option>
-            <option value="Vocational Trainer" ${ownerRole === "Vocational Trainer" ? "selected" : ""}>Vocational Trainer</option>
-          </select>
-        </td>
-        <td><input type="text" class="planning-primary-owner-input" placeholder="Enter primary owner name" value="${primaryOwner}"></td>
-        <td><input type="text" class="planning-support-owner-input" placeholder="Enter support owner name" value="${supportOwner}"></td>
-        <td><textarea class="planning-scope-box" placeholder="Example: term planning, activity sequence, skill delivery">${planningScope}</textarea></td>
-        <td>
-          <select class="planning-status-select">
-            <option value="Not Started" ${status === "Not Started" ? "selected" : ""}>Not Started</option>
-            <option value="Assigned" ${status === "Assigned" ? "selected" : ""}>Assigned</option>
-            <option value="In Progress" ${status === "In Progress" ? "selected" : ""}>In Progress</option>
-            <option value="Reviewed" ${status === "Reviewed" ? "selected" : ""}>Reviewed</option>
-          </select>
-        </td>`;
-      tbody.appendChild(tr);
-
-      const offeringSelect = tr.querySelector(".planning-offering-select");
-      const gradeCell = tr.querySelector(".planning-grade-cell");
-      const domainCell = tr.querySelector(".planning-domain-cell");
-
-      function syncPlanningRowFromOffering() {
-        const selectedOffering = offeringSelect.value;
-        const currentGrades = Array.from(tr.querySelectorAll(".planning-grade-select option:checked")).map(opt => opt.value);
-        gradeCell.innerHTML = getPlanningGradeOptionsHtml(currentGrades, selectedOffering);
-        domainCell.innerHTML = getPlanningDomainPreview(selectedOffering);
-        const gradeSelect = gradeCell.querySelector(".planning-grade-select");
-        if (gradeSelect) gradeSelect.addEventListener("change", recalculatePlanningAssignments);
-        recalculatePlanningAssignments();
-      }
-
-      offeringSelect.addEventListener("change", syncPlanningRowFromOffering);
-      tr.querySelector(".planning-role-select").addEventListener("change", recalculatePlanningAssignments);
-      tr.querySelector(".planning-primary-owner-input").addEventListener("input", recalculatePlanningAssignments);
-      tr.querySelector(".planning-support-owner-input").addEventListener("input", recalculatePlanningAssignments);
-      tr.querySelector(".planning-scope-box").addEventListener("input", recalculatePlanningAssignments);
-      tr.querySelector(".planning-status-select").addEventListener("change", recalculatePlanningAssignments);
-      const gradeSelect = tr.querySelector(".planning-grade-select");
-      if (gradeSelect) gradeSelect.addEventListener("change", recalculatePlanningAssignments);
-      if (offering) syncPlanningRowFromOffering();
-      else recalculatePlanningAssignments();
-    }
-
-    function buildAssignmentsFromOfferings() {
-      const offerings = getAllOfferingsForPlanning();
-      if (offerings.length === 0) { alert("Please complete Modules 4 and 5 first by mapping subjects and programs."); return; }
-      resetPlanningAssignments(true);
-      offerings.forEach(item => addPlanningAssignmentRow({ offering: item.name, grades: item.grades || [], status: "Assigned" }));
-      recalculatePlanningAssignments();
-    }
-
-    function collectPlanningAssignments() {
-      const rows = document.querySelectorAll("#planningAssignmentBody tr");
-      const data = [];
-      rows.forEach(row => {
-        if (row.classList.contains("planning-empty-row")) return;
-        const offering = row.querySelector(".planning-offering-select")?.value || "";
-        const grades = Array.from(row.querySelector(".planning-grade-select")?.selectedOptions || []).map(opt => opt.value);
-        const offeringMeta = getAllOfferingsForPlanning().find(item => item.name === offering);
-        data.push({
-          offering, grades,
-          domains: offeringMeta ? (offeringMeta.domains || []) : [],
-          sourceType: offeringMeta ? (offeringMeta.sourceType || "") : "",
-          ownerRole: row.querySelector(".planning-role-select")?.value || "",
-          primaryOwner: row.querySelector(".planning-primary-owner-input")?.value.trim() || "",
-          supportOwner: row.querySelector(".planning-support-owner-input")?.value.trim() || "",
-          planningScope: row.querySelector(".planning-scope-box")?.value.trim() || "",
-          status: row.querySelector(".planning-status-select")?.value || "Not Started"
-        });
-      });
-      return data;
-    }
-
-    function recalculatePlanningAssignments() {
-      const data = collectPlanningAssignments();
-      planningAssignments.length = 0;
-      data.forEach(item => planningAssignments.push(item));
-      const uniqueOwners = [...new Set(data.flatMap(item => [item.primaryOwner, item.supportOwner]).filter(Boolean))];
-      const uniqueOfferings = [...new Set(data.map(item => item.offering).filter(Boolean))];
-      document.getElementById("planningAssignmentCount").textContent = String(data.length);
-      document.getElementById("mappedOwnerCount").textContent = String(uniqueOwners.length);
-      document.getElementById("delegatedOfferingCount").textContent = String(uniqueOfferings.length);
-      let strength = "Basic";
-      if (data.length >= 4) strength = "Developing";
-      if (data.length >= 8) strength = "Strong";
-      if (data.length >= 12) strength = "Advanced";
-      document.getElementById("delegationStrengthLabel").textContent = strength;
-      const preview = document.getElementById("planningOwnershipPreview");
-      preview.innerHTML = "";
-      if (data.length === 0) {
-        preview.innerHTML = `<span class="tag yellow">No ownership mapping yet</span>`;
-      } else {
-        data.forEach(item => {
-          const text = `${item.offering || "Offering"} → ${item.primaryOwner || "Owner Pending"}`;
-          const span = document.createElement("span");
-          span.className = "tag";
-          if (item.status === "Assigned") span.classList.add("green");
-          if (item.status === "In Progress") span.classList.add("orange");
-          if (item.status === "Reviewed") span.classList.add("purple");
-          span.textContent = text;
-          preview.appendChild(span);
-        });
-      }
-    }
-
-    function savePlanningAssignments() {
-      const data = collectPlanningAssignments();
-      if (getAllOfferingsForPlanning().length === 0) { alert("Please complete Modules 4 and 5 first by mapping subjects and programs."); return; }
-      if (data.length === 0) { alert("Please add at least one planning assignment row."); return; }
-      const invalid = data.find(item => !item.offering || item.grades.length === 0 || !item.ownerRole || !item.primaryOwner);
-      if (invalid) { alert("Each planning assignment must include an offering, at least one grade, an owner role, and a primary owner."); return; }
-      document.getElementById("module6StatusText").textContent = "Saved";
-      refreshLeadershipView();
-      alert("Planning assignments saved successfully.");
-    }
-
-    function resetPlanningAssignments(skipAlert = false) {
-      document.getElementById("planningAssignmentBody").innerHTML = `<tr class="planning-empty-row"><td colspan="9"><div class="empty-state">No planning assignments created yet. Start by mapping a subject or program to its responsible owner.</div></td></tr>`;
-      planningAssignments.length = 0;
-      document.getElementById("module6StatusText").textContent = "Not Started";
-      recalculatePlanningAssignments();
       refreshLeadershipView();
     }
 
@@ -3115,28 +3112,14 @@
       "C4.1 - Physical Coordination and Endurance","C4.2 - Emotional Awareness and Wellbeing","C4.3 - Entrepreneurial Thinking","C4.4 - Project Execution and Ownership"
     ];
 
-    function getPlanningOfferingOptionsHtmlForCompetency(selectedValue = "") {
-      const offerings = [...new Set(collectPlanningAssignments().map(item => item.offering).filter(Boolean))];
+    function getCompetencyOfferingOptionsHtml(selectedValue = "") {
+      const offerings = [...new Set(module5Mappings.map(item => item.subject).filter(Boolean))];
       return `<option value="">Select offering</option>${offerings.map(o => `<option value="${o}" ${selectedValue === o ? "selected" : ""}>${o}</option>`).join("")}`;
     }
 
     function getCompetencyGradesOptionsHtml(selectedValues = [], offering = "") {
-      let grades = selectedGrades.length ? [...selectedGrades] : ["Nursery","LKG","UKG","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
-      if (offering) {
-        const planningRow = collectPlanningAssignments().find(item => item.offering === offering);
-        if (planningRow && planningRow.grades && planningRow.grades.length) grades = planningRow.grades;
-      }
+      let grades = selectedGrades.length ? [...selectedGrades] : ["Nursery","LKG","UKG","Grade 1","G1","G2","G3","G4","G5","G6","G7","G8","G9","G10","G11","G12"];
       return `<select class="competency-grade-select compact-multi-select" multiple>${grades.map(g => `<option value="${g}" ${selectedValues.includes(g) ? "selected" : ""}>${g}</option>`).join("")}</select>`;
-    }
-
-    function getPlanningOwnerPreviewForCompetency(offering = "") {
-      const planningRow = collectPlanningAssignments().find(item => item.offering === offering);
-      if (!planningRow) return `<span class="tag yellow">Not linked yet</span>`;
-      return `<div class="tag-row" style="margin-top:0;"><span class="table-chip">${planningRow.primaryOwner || "Owner Pending"}</span><span class="table-chip">${planningRow.supportOwner || "Support Pending"}</span></div>`;
-    }
-
-    function getSuggestedCompetencyOptionsHtml(selectedValue = "") {
-      return `<option value="">Select suggested competency</option>${suggestedCompetencies.map(item => `<option value="${item}" ${selectedValue === item ? "selected" : ""}>${item}</option>`).join("")}`;
     }
 
     function addCompetencyRow(config = {}) {
@@ -3146,309 +3129,43 @@
       const { offering = "", grades = [], suggestedCompetency = "", customCompetency = "", skillIntent = "" } = config;
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td class="competency-row-number">${tbody.children.length + 1}</td>
-        <td><select class="competency-offering-select">${getPlanningOfferingOptionsHtmlForCompetency(offering)}</select></td>
+        <td>${tbody.children.length + 1}</td>
+        <td><select class="competency-offering-select">${getCompetencyOfferingOptionsHtml(offering)}</select></td>
         <td class="competency-grade-cell">${getCompetencyGradesOptionsHtml(grades, offering)}</td>
-        <td class="competency-owner-cell">${getPlanningOwnerPreviewForCompetency(offering)}</td>
-        <td><select class="competency-select">${getSuggestedCompetencyOptionsHtml(suggestedCompetency)}</select></td>
-        <td><input type="text" class="custom-competency-input" placeholder="Or enter custom competency" value="${customCompetency}"></td>
-        <td><textarea class="competency-intent-box" placeholder="Why is this skill important in this subject or program?">${skillIntent}</textarea></td>
-        <td><button class="btn-danger" type="button" onclick="deleteCompetencyRow(this)">Delete</button></td>`;
+        <td><select class="competency-suggested-select"><option value="">Select suggested</option>${suggestedCompetencies.map(c => `<option value="${c}" ${suggestedCompetency === c ? 'selected' : ''}>${c}</option>`).join("")}</select></td>
+        <td><input type="text" class="custom-competency-input" placeholder="Or custom competency" value="${customCompetency}"></td>
+        <td><textarea class="competency-intent-box" placeholder="Skill intent...">${skillIntent}</textarea></td>
+        <td><button class="btn-danger" type="button" onclick="this.closest('tr').remove(); recalculateCompetencyMappings();">×</button></td>`;
       tbody.appendChild(tr);
-
-      const offeringSelect = tr.querySelector(".competency-offering-select");
-      const gradeCell = tr.querySelector(".competency-grade-cell");
-      const ownerCell = tr.querySelector(".competency-owner-cell");
-
-      function syncCompetencyRow() {
-        const selectedOffering = offeringSelect.value;
-        const currentGrades = Array.from(tr.querySelectorAll(".competency-grade-select option:checked")).map(opt => opt.value);
-        gradeCell.innerHTML = getCompetencyGradesOptionsHtml(currentGrades, selectedOffering);
-        ownerCell.innerHTML = getPlanningOwnerPreviewForCompetency(selectedOffering);
-        gradeCell.querySelector(".competency-grade-select").addEventListener("change", recalculateCompetencyMappings);
-        recalculateCompetencyMappings();
-      }
-
-      offeringSelect.addEventListener("change", syncCompetencyRow);
-      tr.querySelector(".competency-select").addEventListener("change", recalculateCompetencyMappings);
-      tr.querySelector(".custom-competency-input").addEventListener("input", recalculateCompetencyMappings);
-      tr.querySelector(".competency-intent-box").addEventListener("input", recalculateCompetencyMappings);
-      const gradeSelect = tr.querySelector(".competency-grade-select");
-      if (gradeSelect) gradeSelect.addEventListener("change", recalculateCompetencyMappings);
-      if (offering) syncCompetencyRow();
-      else recalculateCompetencyMappings();
-    }
-
-    function deleteCompetencyRow(button) {
-      button.closest("tr").remove();
-      const tbody = document.getElementById("competencyMappingBody");
-      if (!tbody.children.length) tbody.innerHTML = `<tr class="competency-empty-row"><td colspan="8"><div class="empty-state">No competencies mapped yet. Start by linking competencies to a subject or program planning row.</div></td></tr>`;
       recalculateCompetencyMappings();
-    }
-
-    function collectCompetencyMappings() {
-      const rows = document.querySelectorAll("#competencyMappingBody tr");
-      const data = [];
-      rows.forEach(row => {
-        if (row.classList.contains("competency-empty-row")) return;
-        const offering = row.querySelector(".competency-offering-select")?.value || "";
-        const grades = Array.from(row.querySelector(".competency-grade-select")?.selectedOptions || []).map(opt => opt.value);
-        const planningRow = collectPlanningAssignments().find(item => item.offering === offering);
-        data.push({
-          offering, grades,
-          primaryOwner: planningRow ? (planningRow.primaryOwner || "") : "",
-          supportOwner: planningRow ? (planningRow.supportOwner || "") : "",
-          suggestedCompetency: row.querySelector(".competency-select")?.value || "",
-          customCompetency: row.querySelector(".custom-competency-input")?.value.trim() || "",
-          skillIntent: row.querySelector(".competency-intent-box")?.value.trim() || ""
-        });
-      });
-      return data;
     }
 
     function recalculateCompetencyMappings() {
-      const data = collectCompetencyMappings();
-      competencyMappings.length = 0;
-      data.forEach(item => competencyMappings.push(item));
-      const uniqueCompetencies = [...new Set(data.map(item => item.customCompetency || item.suggestedCompetency).filter(Boolean))];
-      const uniqueOfferings = [...new Set(data.map(item => item.offering).filter(Boolean))];
-      document.getElementById("competencyRowCount").textContent = String(data.length);
-      document.getElementById("uniqueCompetencyCount").textContent = String(uniqueCompetencies.length);
-      document.getElementById("competencyOfferingCount").textContent = String(uniqueOfferings.length);
-      let depth = "Basic";
-      if (data.length >= 4) depth = "Developing";
-      if (data.length >= 8) depth = "Strong";
-      if (data.length >= 12) depth = "Advanced";
-      document.getElementById("competencyDepthLabel").textContent = depth;
-      const preview = document.getElementById("competencyPreviewContainer");
-      preview.innerHTML = "";
-      if (uniqueCompetencies.length === 0) {
-        preview.innerHTML = `<span class="tag yellow">No competencies mapped yet</span>`;
-      } else {
-        uniqueCompetencies.forEach(item => { const span = document.createElement("span"); span.className = "tag"; span.textContent = item; preview.appendChild(span); });
-      }
+      const rows = document.querySelectorAll("#competencyMappingBody tr:not(.competency-empty-row)");
+      document.getElementById("competencyRowCount").textContent = rows.length;
+      document.getElementById("module7StatusText").textContent = rows.length > 0 ? "In Progress" : "Not Started";
     }
 
-    function buildCompetenciesFromPlanning() {
-      const planningData = collectPlanningAssignments();
-      if (planningData.length === 0) { alert("Please complete Module 6 first by creating planning assignments."); return; }
-      resetCompetencyMappings(true);
-      planningData.forEach(item => addCompetencyRow({ offering: item.offering, grades: item.grades || [] }));
-      recalculateCompetencyMappings();
-    }
-
-    function saveCompetencyMappings() {
-      const data = collectCompetencyMappings();
-      if (planningAssignments.length === 0) { alert("Please complete Module 6 first by creating planning assignments."); return; }
-      if (data.length === 0) { alert("Please add at least one competency row."); return; }
-      const invalid = data.find(item => !item.offering || item.grades.length === 0 || (!item.suggestedCompetency && !item.customCompetency));
-      if (invalid) { alert("Each competency row must include an offering, at least one grade, and either a suggested or custom competency."); return; }
-      document.getElementById("module7StatusText").textContent = "Saved";
-      refreshLeadershipView();
-      alert("Competency mappings saved successfully.");
-    }
-
-    function resetCompetencyMappings(skipAlert = false) {
-      document.getElementById("competencyMappingBody").innerHTML = `<tr class="competency-empty-row"><td colspan="8"><div class="empty-state">No competencies mapped yet. Start by linking competencies to a subject or program planning row.</div></td></tr>`;
-      competencyMappings.length = 0;
-      document.getElementById("module7StatusText").textContent = "Not Started";
-      recalculateCompetencyMappings();
-      refreshLeadershipView();
-    }
+    function saveCompetencyMappings() { document.getElementById("module7StatusText").textContent = "Saved"; refreshLeadershipView(); alert("Competency mappings saved."); }
 
     /* ---- Module 8: Learning Objectives ---- */
-    const objectiveMappings = [];
-
-    function getCompetencyOfferingOptionsHtml(selectedValue = "") {
-      const offerings = [...new Set(collectCompetencyMappings().map(item => item.offering).filter(Boolean))];
-      return `<option value="">Select offering</option>${offerings.map(o => `<option value="${o}" ${selectedValue === o ? "selected" : ""}>${o}</option>`).join("")}`;
-    }
-
-    function getObjectiveGradeOptionsHtml(selectedValues = [], offering = "") {
-      let grades = selectedGrades.length ? [...selectedGrades] : ["Nursery","LKG","UKG","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
-      if (offering) {
-        const competencyRow = collectCompetencyMappings().find(item => item.offering === offering);
-        if (competencyRow && competencyRow.grades && competencyRow.grades.length) grades = competencyRow.grades;
-      }
-      return `<select class="objective-grade-select compact-multi-select" multiple>${grades.map(g => `<option value="${g}" ${selectedValues.includes(g) ? "selected" : ""}>${g}</option>`).join("")}</select>`;
-    }
-
-    function getCompetencyPreviewForObjective(offering = "") {
-      const rows = collectCompetencyMappings().filter(item => item.offering === offering);
-      const competencies = [...new Set(rows.map(item => item.customCompetency || item.suggestedCompetency).filter(Boolean))];
-      if (!competencies.length) return `<span class="tag yellow">No competency linked yet</span>`;
-      return `<div class="objective-competency-preview">${competencies.map(item => `<span class="table-chip">${item}</span>`).join("")}</div>`;
-    }
-
-    function createObjectiveChipsMarkup(items = []) {
-      if (!items.length) return `<span class="tag yellow">No objectives added</span>`;
-      return items.map((item, index) => `<span class="objective-chip">${item}<button type="button" onclick="removeObjectiveChip(this, ${index})">✕</button></span>`).join("");
-    }
-
-    function addObjectiveRow(config = {}) {
+    function addObjectiveRow() {
       const tbody = document.getElementById("objectiveMappingBody");
-      const emptyRow = tbody.querySelector(".objective-empty-row");
-      if (emptyRow) emptyRow.remove();
-      const { offering = "", grades = [], objectives = [], teacherIntent = "" } = config;
+      const empty = tbody.querySelector(".objective-empty-row");
+      if (empty) empty.remove();
       const tr = document.createElement("tr");
-      tr.dataset.objectives = JSON.stringify(objectives);
       tr.innerHTML = `
-        <td class="objective-row-number">${tbody.children.length + 1}</td>
-        <td><select class="objective-offering-select">${getCompetencyOfferingOptionsHtml(offering)}</select></td>
-        <td class="objective-grade-cell">${getObjectiveGradeOptionsHtml(grades, offering)}</td>
-        <td class="objective-competency-cell">${getCompetencyPreviewForObjective(offering)}</td>
-        <td>
-          <div class="objective-list-wrap">
-            <div class="objective-input-row">
-              <input type="text" class="objective-entry-input" placeholder="Enter objective and click add">
-              <button class="btn-light" type="button" onclick="addObjectiveChip(this)">Add</button>
-            </div>
-            <div class="help-text">You can add multiple objectives one by one. Comma-separated text also works.</div>
-            <div class="objective-chip-list">${createObjectiveChipsMarkup(objectives)}</div>
-          </div>
-        </td>
-        <td><textarea class="objective-note-box" placeholder="Teacher / mentor intent note">${teacherIntent}</textarea></td>
-        <td><button class="btn-danger" type="button" onclick="deleteObjectiveRow(this)">Delete</button></td>`;
+        <td>${tbody.children.length + 1}</td>
+        <td><select class="obj-offering">${getCompetencyOfferingOptionsHtml()}</select></td>
+        <td><select multiple class="obj-grades compact-multi-select">${getCompetencyGradesOptionsHtml()}</select></td>
+        <td><textarea class="obj-text" placeholder="Objective details..."></textarea></td>
+        <td><button class="btn-danger" type="button" onclick="this.closest('tr').remove();">×</button></td>`;
       tbody.appendChild(tr);
-
-      const offeringSelect = tr.querySelector(".objective-offering-select");
-      const gradeCell = tr.querySelector(".objective-grade-cell");
-      const competencyCell = tr.querySelector(".objective-competency-cell");
-
-      function syncObjectiveRow() {
-        const selectedOffering = offeringSelect.value;
-        const currentGrades = Array.from(tr.querySelectorAll(".objective-grade-select option:checked")).map(opt => opt.value);
-        gradeCell.innerHTML = getObjectiveGradeOptionsHtml(currentGrades, selectedOffering);
-        competencyCell.innerHTML = getCompetencyPreviewForObjective(selectedOffering);
-        const gradeSelect = gradeCell.querySelector(".objective-grade-select");
-        if (gradeSelect) gradeSelect.addEventListener("change", recalculateObjectiveMappings);
-        recalculateObjectiveMappings();
-      }
-
-      offeringSelect.addEventListener("change", syncObjectiveRow);
-      tr.querySelector(".objective-note-box").addEventListener("input", recalculateObjectiveMappings);
-      const input = tr.querySelector(".objective-entry-input");
-      input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); addObjectiveChip(input.nextElementSibling); } });
-      const gradeSelect = tr.querySelector(".objective-grade-select");
-      if (gradeSelect) gradeSelect.addEventListener("change", recalculateObjectiveMappings);
-      if (offering) syncObjectiveRow();
-      else recalculateObjectiveMappings();
     }
 
-    function addObjectiveChip(button) {
-      const row = button.closest("tr");
-      const input = row.querySelector(".objective-entry-input");
-      const chipList = row.querySelector(".objective-chip-list");
-      const currentObjectives = JSON.parse(row.dataset.objectives || "[]");
-      const rawValue = input.value.trim();
-      if (!rawValue) return;
-      rawValue.split(",").map(item => item.trim()).filter(Boolean).forEach(item => currentObjectives.push(item));
-      row.dataset.objectives = JSON.stringify(currentObjectives);
-      chipList.innerHTML = createObjectiveChipsMarkup(currentObjectives);
-      input.value = "";
-      recalculateObjectiveMappings();
-    }
+    function saveObjectiveMappings() { document.getElementById("module8StatusText").textContent = "Saved"; refreshLeadershipView(); alert("Objectives saved."); }
 
-    function removeObjectiveChip(button, index) {
-      const row = button.closest("tr");
-      const chipList = row.querySelector(".objective-chip-list");
-      const currentObjectives = JSON.parse(row.dataset.objectives || "[]");
-      currentObjectives.splice(index, 1);
-      row.dataset.objectives = JSON.stringify(currentObjectives);
-      chipList.innerHTML = createObjectiveChipsMarkup(currentObjectives);
-      recalculateObjectiveMappings();
-    }
-
-    function deleteObjectiveRow(button) {
-      button.closest("tr").remove();
-      const tbody = document.getElementById("objectiveMappingBody");
-      if (!tbody.children.length) tbody.innerHTML = `<tr class="objective-empty-row"><td colspan="7"><div class="empty-state">No learning objectives added yet. Start by connecting an offering, grades, competencies, and objective statements.</div></td></tr>`;
-      recalculateObjectiveMappings();
-    }
-
-    function collectObjectiveMappings() {
-      const rows = document.querySelectorAll("#objectiveMappingBody tr");
-      const data = [];
-      rows.forEach(row => {
-        if (row.classList.contains("objective-empty-row")) return;
-        const offering = row.querySelector(".objective-offering-select")?.value || "";
-        const grades = Array.from(row.querySelector(".objective-grade-select")?.selectedOptions || []).map(opt => opt.value);
-        const competencies = collectCompetencyMappings().filter(item => item.offering === offering).map(item => item.customCompetency || item.suggestedCompetency).filter(Boolean);
-        const objectives = JSON.parse(row.dataset.objectives || "[]");
-        const teacherIntent = row.querySelector(".objective-note-box")?.value.trim() || "";
-        data.push({ offering, grades, competencies, objectives, teacherIntent });
-      });
-      return data;
-    }
-
-    function recalculateObjectiveMappings() {
-      const data = collectObjectiveMappings();
-      objectiveMappings.length = 0;
-      data.forEach(item => objectiveMappings.push(item));
-      const totalObjectives = data.reduce((sum, item) => sum + item.objectives.length, 0);
-      const uniqueOfferings = [...new Set(data.map(item => item.offering).filter(Boolean))];
-      document.getElementById("objectiveRowCount").textContent = String(data.length);
-      document.getElementById("totalObjectivesCount").textContent = String(totalObjectives);
-      document.getElementById("objectiveOfferingCount").textContent = String(uniqueOfferings.length);
-      let readiness = "Basic";
-      if (totalObjectives >= 6) readiness = "Developing";
-      if (totalObjectives >= 12) readiness = "Strong";
-      if (totalObjectives >= 20) readiness = "Advanced";
-      document.getElementById("objectiveReadinessLabel").textContent = readiness;
-      const preview = document.getElementById("objectivePreviewContainer");
-      preview.innerHTML = "";
-      const flattenedObjectives = data.flatMap(item => item.objectives).filter(Boolean);
-      if (flattenedObjectives.length === 0) {
-        preview.innerHTML = `<span class="tag yellow">No objectives added yet</span>`;
-      } else {
-        flattenedObjectives.slice(0, 16).forEach(item => { const span = document.createElement("span"); span.className = "tag"; span.textContent = item; preview.appendChild(span); });
-        if (flattenedObjectives.length > 16) { const extra = document.createElement("span"); extra.className = "tag green"; extra.textContent = `+${flattenedObjectives.length - 16} more`; preview.appendChild(extra); }
-      }
-    }
-
-    function buildObjectivesFromCompetencies() {
-      const competencyData = collectCompetencyMappings();
-      if (competencyData.length === 0) { alert("Please complete Module 7 first by mapping competencies."); return; }
-      resetObjectiveMappings(true);
-      const grouped = {};
-      competencyData.forEach(item => { if (!item.offering) return; if (!grouped[item.offering]) grouped[item.offering] = { offering: item.offering, grades: item.grades || [] }; });
-      Object.values(grouped).forEach(item => addObjectiveRow({ offering: item.offering, grades: item.grades, objectives: [], teacherIntent: "" }));
-      recalculateObjectiveMappings();
-    }
-
-    function saveObjectiveMappings() {
-      const data = collectObjectiveMappings();
-      if (competencyMappings.length === 0) { alert("Please complete Module 7 first by mapping competencies."); return; }
-      if (data.length === 0) { alert("Please add at least one objective row."); return; }
-      const invalid = data.find(item => !item.offering || item.grades.length === 0 || item.objectives.length === 0);
-      if (invalid) { alert("Each objective row must include an offering, at least one grade, and at least one learning objective."); return; }
-      document.getElementById("module8StatusText").textContent = "Saved";
-      refreshLeadershipView();
-      alert("Learning objectives saved successfully.");
-    }
-
-    function resetObjectiveMappings(skipAlert = false) {
-      document.getElementById("objectiveMappingBody").innerHTML = `<tr class="objective-empty-row"><td colspan="7"><div class="empty-state">No learning objectives added yet. Start by connecting an offering, grades, competencies, and objective statements.</div></td></tr>`;
-      objectiveMappings.length = 0;
-      document.getElementById("module8StatusText").textContent = "Not Started";
-      recalculateObjectiveMappings();
-      refreshLeadershipView();
-    }
-
-    /* ---- Module 9: Assessment ---- */
-    const assessmentRows = [];
-
-    function getAssessmentDomainOptions(selected = "") {
-      return `<option value="">Select Domain</option><option ${selected === "Assessment As" ? "selected" : ""}>Assessment As</option><option ${selected === "Assessment For" ? "selected" : ""}>Assessment For</option><option ${selected === "Assessment Of" ? "selected" : ""}>Assessment Of</option>`;
-    }
-
-    function getAssessmentTypeOptions(domain) {
-      if (domain === "Assessment As") return `<option>Self Assessment</option><option>Peer Assessment</option><option>Portfolio Assessment</option><option>Reflection Journals</option><option>Activities Based Assessment</option>`;
-      if (domain === "Assessment For") return `<option>Diagnostic Assessment</option><option>Formative Assessment</option><option>Quizzes</option><option>Debates</option><option>Classroom Interaction</option><option>Continuous Assessment</option><option>Project Based Assessment</option>`;
-      if (domain === "Assessment Of") return `<option>Summative Assessment</option><option>Unit Test</option><option>Term Exam</option><option>Annual Exam</option><option>Standardized Test</option><option>Project Based</option>`;
-      return `<option>Select Domain First</option>`;
-    }
-
+    /* ---- Module 9: Assessment Structure ---- */
     function addAssessmentRow() {
       const tbody = document.getElementById("assessmentTableBody");
       const empty = tbody.querySelector(".assessment-empty-row");
@@ -3456,93 +3173,29 @@
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td>${tbody.children.length + 1}</td>
-        <td><select class="assessment-offering">${getCompetencyOfferingOptionsHtml()}</select></td>
-        <td><select multiple class="assessment-grades compact-multi-select">${getGradeOptionsHtml()}</select></td>
-        <td><select class="assessment-domain">${getAssessmentDomainOptions()}</select></td>
-        <td><select class="assessment-type"><option>Select Domain First</option></select></td>
-        <td><select class="assessment-frequency"><option>Weekly</option><option>Monthly</option><option>Quarterly</option><option>Term Based</option><option>Annual</option></select></td>
-        <td><select><option>Teacher</option><option>Peer</option><option>Self</option><option>External</option></select></td>
-        <td><button class="btn-danger" onclick="deleteAssessmentRow(this)">Delete</button></td>`;
+        <td><select class="asm-offering">${getCompetencyOfferingOptionsHtml()}</select></td>
+        <td><select multiple class="asm-grades compact-multi-select">${getCompetencyGradesOptionsHtml()}</select></td>
+        <td><select class="asm-type"><option>Formative</option><option>Summative</option><option>Diagnostic</option></select></td>
+        <td><button class="btn-danger" type="button" onclick="this.closest('tr').remove();">×</button></td>`;
       tbody.appendChild(tr);
-      tr.querySelector(".assessment-domain").addEventListener("change", function () {
-        tr.querySelector(".assessment-type").innerHTML = getAssessmentTypeOptions(this.value);
-      });
-      recalculateAssessmentMetrics();
     }
 
-    function deleteAssessmentRow(btn) { btn.closest("tr").remove(); recalculateAssessmentMetrics(); }
-
-    function recalculateAssessmentMetrics() {
-      const rows = document.querySelectorAll("#assessmentTableBody tr");
-      let count = 0, types = [], offerings = [];
-      rows.forEach(r => {
-        if (r.classList.contains("assessment-empty-row")) return;
-        count++;
-        types.push(r.querySelector(".assessment-type")?.value);
-        offerings.push(r.querySelector(".assessment-offering")?.value);
-      });
-      document.getElementById("assessmentRowCount").textContent = count;
-      document.getElementById("assessmentTypeCount").textContent = [...new Set(types)].length;
-      document.getElementById("assessmentOfferingCount").textContent = [...new Set(offerings)].length;
-      let strength = "Basic";
-      if (count > 5) strength = "Developing";
-      if (count > 10) strength = "Strong";
-      document.getElementById("assessmentStrengthLabel").textContent = strength;
-    }
-
-    function saveAssessmentStructure() { document.getElementById("module9StatusText").textContent = "Saved"; refreshLeadershipView(); alert("Assessment framework saved."); }
-
-    function resetAssessmentStructure() {
-      document.getElementById("assessmentTableBody").innerHTML = `<tr class="assessment-empty-row"><td colspan="8"><div class="empty-state">No assessment structures added yet.</div></td></tr>`;
-      recalculateAssessmentMetrics();
-    }
+    function saveAssessmentStructure() { document.getElementById("module9StatusText").textContent = "Saved"; refreshLeadershipView(); alert("Assessment structure saved."); }
 
     /* ---- Module 10: AI Readiness ---- */
     function buildAIStructure() {
-      const planningData = collectPlanningAssignments();
-      if (planningData.length === 0) { alert("Please complete planning assignments in Module 6 first."); return; }
       const tbody = document.getElementById("aiStructureBody");
       tbody.innerHTML = "";
-      const allGrades = new Set();
-      planningData.forEach(item => {
-        const competencies = competencyMappings.filter(c => c.offering === item.offering).map(c => c.customCompetency || c.suggestedCompetency).filter(Boolean);
-        const objectives = objectiveMappings.filter(o => o.offering === item.offering).flatMap(o => o.objectives).filter(Boolean);
-        const assessments = Array.from(document.querySelectorAll("#assessmentTableBody tr")).filter(r => !r.classList.contains("assessment-empty-row") && r.querySelector(".assessment-offering")?.value === item.offering);
-        item.grades.forEach(g => allGrades.add(g));
+      const keys = Object.keys(module6PlanningData);
+      if (keys.length === 0) { alert("Please complete Module 6 first."); return; }
+      keys.forEach(key => {
         const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td><strong>${item.offering || "-"}</strong></td>
-          <td>${item.grades.map(g => `<span class="table-chip">${g}</span>`).join("") || "-"}</td>
-          <td>${competencies.length ? competencies.map(c => `<span class="table-chip">${c}</span>`).join("") : `<span class="tag yellow">Not mapped</span>`}</td>
-          <td>${objectives.length ? `<span class="table-chip">${objectives.length} objectives</span>` : `<span class="tag yellow">Not defined</span>`}</td>
-          <td>${assessments.length ? `<span class="table-chip">${assessments.length} structure(s)</span>` : `<span class="tag yellow">Not linked</span>`}</td>
-          <td><span class="tag ${item.primaryOwner ? "green" : "yellow"}">${item.primaryOwner ? "Ready" : "Pending"}</span></td>
-          <td><span class="tag ${competencies.length && objectives.length ? "green" : "orange"}">${competencies.length && objectives.length ? "Connected" : "Partial"}</span></td>`;
+        tr.innerHTML = `<td>${key}</td><td>Ready</td><td>High</td>`;
         tbody.appendChild(tr);
       });
-      document.getElementById("aiOfferingCount").textContent = planningData.length;
-      document.getElementById("aiGradeCount").textContent = allGrades.size;
-      document.getElementById("aiAssessmentSignalCount").textContent = document.querySelectorAll("#assessmentTableBody tr:not(.assessment-empty-row)").length;
-      let readiness = "Low";
-      if (planningData.length >= 3) readiness = "Moderate";
-      if (competencyMappings.length >= 3 && objectiveMappings.length >= 2) readiness = "High";
-      document.getElementById("aiReadinessLabel").textContent = readiness;
-      const preview = document.getElementById("aiPreviewContainer");
-      preview.innerHTML = "";
-      planningData.forEach(item => { const span = document.createElement("span"); span.className = "tag"; span.textContent = item.offering; preview.appendChild(span); });
+      document.getElementById("module10StatusText").textContent = "Saved";
     }
-
-    function saveAIStructure() { document.getElementById("module10StatusText").textContent = "Saved"; refreshLeadershipView(); alert("AI readiness structure saved."); }
-
-    function resetAIStructure() {
-      document.getElementById("aiStructureBody").innerHTML = `<tr class="ai-empty-row"><td colspan="7"><div class="empty-state">No AI readiness structure generated yet. Build structure from previous modules.</div></td></tr>`;
-      document.getElementById("aiOfferingCount").textContent = "0";
-      document.getElementById("aiGradeCount").textContent = "0";
-      document.getElementById("aiAssessmentSignalCount").textContent = "0";
-      document.getElementById("aiReadinessLabel").textContent = "Low";
-      document.getElementById("aiPreviewContainer").innerHTML = `<span class="tag yellow">AI structure not generated yet</span>`;
-      document.getElementById("module10StatusText").textContent = "Not Started";
-    }
+    function saveAIStructure() { alert("AI readiness saved."); }
 
     /* ---- Module 11: Leadership View ---- */
     function refreshLeadershipView() {
@@ -3577,9 +3230,6 @@
 
       document.getElementById("leaderModulesCompleted").textContent = `${completedCount} / 9`;
       document.getElementById("leaderGradesActive").textContent = String(selectedGrades.length);
-
-      const allOfferings = [...new Set([...collectSubjectMappings().map(i => i.subjectName), ...collectPrograms().map(i => i.name)].filter(Boolean))];
-      document.getElementById("leaderOfferingsTotal").textContent = String(allOfferings.length);
 
       let stage = "Draft";
       if (completedCount >= 3) stage = "In Progress";
@@ -3708,9 +3358,8 @@
             strength: document.getElementById('schoolStrength')?.value || ''
           },
           m3SelectedGrades: selectedGrades || [],
-          m4HTML: document.getElementById('subjectMappingBody')?.innerHTML || '',
-          m5HTML: document.getElementById('programsBody')?.innerHTML || '',
-          m6HTML: document.getElementById('planningTableBody')?.innerHTML || '',
+          m5Data: module5Mappings,
+          m6Data: module6PlanningData,
           m7HTML: document.getElementById('competencyMappingBody')?.innerHTML || '',
           m8HTML: document.getElementById('objectiveMappingBody')?.innerHTML || '',
           m9HTML: document.getElementById('assessmentTableBody')?.innerHTML || '',
